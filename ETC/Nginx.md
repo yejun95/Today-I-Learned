@@ -11,7 +11,8 @@ Reverse Proxy Server로 활용하여 WAS의 부하를 줄일 수 있는 로드 �
 
 > WAS(Web Application Server) : 클라이언트 요청에 대해 동적 처리가 이뤄진 후 응답
 
-> Reverse Proxy Server : 웹 서버 앞단에서 클라이언트의 요청에 의한 과부하 방지를 위하여 로드 밸런싱에 사용
+> Reverse Proxy Server : 웹 서버 앞단에서 클라이언트의 요청에 의한 과부하 방지를 위하여 로드 밸런싱에 사용<br>
+[Proxy란?](https://github.com/yejun95/Today-I-Learn/blob/master/ETC/Proxy.md)
 <br>
 
 ![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/f7aaf6a1-1410-439a-9faf-0f9f03e340ac)
