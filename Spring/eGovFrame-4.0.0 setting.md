@@ -1,5 +1,5 @@
 ## 기본 세팅
-- java 1.8 / spring / mysql / mybatis / lombok / junit
+- java 1.8 / spring / mysql 8.0.16 / mybatis / lombok / junit
 
 ### pom.xml
 ```java
@@ -127,7 +127,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.42</version>
+			<version>8.0.16</version>
 		</dependency>
 		
 		<dependency>
