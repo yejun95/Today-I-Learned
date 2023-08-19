@@ -23,3 +23,6 @@ $(document).ready(function() { // jquery 시작 문법
 	  alert(res);
   }
 ```
+<br>
+
+![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/92e2417e-a2fa-4daa-a1f4-fb1169ed1fe9)
