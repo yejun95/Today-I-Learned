@@ -63,7 +63,7 @@ eventBus.$emit('refreshData', chartData);
 <br>
 
 이러한 문제로 인하여 vuex store기능을 통해 값을 저장하면서 state를 변경시켜 components에 반영하게 된다.<br>
-기존 : props나 이벤트 버스를 통한 state 변경
+기존 : props나 이벤트 버스를 통한 state 변경<br>
 [state 변경 과정 참조](https://devscb.tistory.com/63)
 <br>
 <hr>
@@ -79,7 +79,7 @@ eventBus.$emit('refreshData', chartData);
 ![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/e4a33be0-dd66-46ac-8184-343f3dd93166)
 <br>
 
-- 단뱡항 통신의 Flux 패턴을 사용
+- 단뱡항 통신의 Flux 패턴을 사용<br>
 [Flux 패턴이란?](https://github.com/yejun95/Today-I-Learn/blob/master/Vue/vuex/Flux%ED%8C%A8%ED%84%B4%EC%9D%B4%EB%9E%80%3F.md)
 <br>
 
