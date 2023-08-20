@@ -80,7 +80,7 @@ eventBus.$emit('refreshData', chartData);
 <br>
 
 - 단뱡항 통신의 Flux 패턴을 사용
-[Flux 패턴이란?]()
+[Flux 패턴이란?](https://github.com/yejun95/Today-I-Learn/blob/master/Vue/vuex/Flux%ED%8C%A8%ED%84%B4%EC%9D%B4%EB%9E%80%3F.md)
 <br>
 
 **컴포넌트 간 데이터 전달 명시**
