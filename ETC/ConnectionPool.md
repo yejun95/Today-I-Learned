@@ -8,6 +8,9 @@
 ![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/646f5b5e-c6b9-47b5-b06f-026e2df1295f)
 <br>
 
+![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/5a296fde-5806-4e8c-bd47-3236a78916b5)
+<br>
+
 
 <br>
 <hr>
@@ -53,11 +56,23 @@ try {
 - pool에 미리 connection이 생성되어 있기 때문에 연결 시간이 빠르다.
 - 커넥션 재사용 및 커넥션 수를 제한적으로 설정 가능
 <br>
+<hr>
+<br>
+
+**✔ 문제점**
 
 **동시 접속자가 많을 경우**
+<br>
 
-- connection이 없을 경우 클라이언트는 connection이 반환될 때까지 번호순대로 대기상태
-- WAS에서 커넥션 풀 크게 설정 => 메모리 소비가 크다.
+![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/21701ced-f414-4077-b927-d54397d523bb)
+<br>
+
+- connection이 없을 경우 클라이언트는 connection이 반환될 때까지 번호순대로 대기 상태가 된다.
+- connection 수 작게 설정 : 원활한 서비스가 불가능
+- connection 수 많게 설정 : 메모리를 많이 사용하여 오히여 성능 저하 발생
+<br>
+
+💡 connection Pool을 사용한다면 유저 수에 따라 connection 수를 적절하게 지정해야 한다.
 <br>
 <hr>
 <br>
@@ -65,4 +80,5 @@ try {
 **Reference**<br>
 
 [Jayon : Connection Pool이란?](https://steady-coding.tistory.com/564)<br>
-[linked2ev : 커넥션 풀(Connection pool)이란?](https://linked2ev.github.io/spring/2019/08/14/Spring-3-%EC%BB%A4%EB%84%A5%EC%85%98-%ED%92%80%EC%9D%B4%EB%9E%80/)
+[linked2ev : 커넥션 풀(Connection pool)이란?](https://linked2ev.github.io/spring/2019/08/14/Spring-3-%EC%BB%A4%EB%84%A5%EC%85%98-%ED%92%80%EC%9D%B4%EB%9E%80/)<br>
+[gwon713 : Nodejs DB connection pool](https://velog.io/@gwon713/Nodejs-MySQL-DB-connection-pool)
