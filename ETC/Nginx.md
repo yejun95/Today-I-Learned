@@ -57,6 +57,7 @@ Reverse Proxy Server로 활용하여 WAS의 부하를 줄일 수 있는 로드 �
   - TCP/UDP 커넥션 부하 분산
  
 - 기본적으로 정적 처리 웹서버가 맞지만 CGI 또는 프록시 기능 사용 시 동적 요청 처리 가능
+<br>
 
 **Reference**<br>
 
