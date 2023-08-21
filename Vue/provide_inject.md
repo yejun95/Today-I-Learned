@@ -76,6 +76,7 @@ export default class Test extends Vue {}
 <hr>
 <br>
 
+**Reference**<br>
 
 [Vue.js: Provide / Inject](https://ko.vuejs.org/guide/components/provide-inject.html#prop-drilling)<br>
 [allblack의 개발 새발: Vue3 Provide / Inject 정리](https://allblack0811.tistory.com/39)
