@@ -58,7 +58,8 @@ Reverse Proxy Server로 활용하여 WAS의 부하를 줄일 수 있는 로드 �
  
 - 기본적으로 정적 처리 웹서버가 맞지만 CGI 또는 프록시 기능 사용 시 동적 요청 처리 가능
 
-**참고 자료**<br>
+**Reference**<br>
+
 [ssdragon - Nginx란](https://ssdragon.tistory.com/60)<br>
 [losskatsu - proxy 서버란](https://losskatsu.github.io/it-infra/reverse-proxy/#2-%ED%8F%AC%EC%9B%8C%EB%93%9C-%ED%94%84%EB%A1%9D%EC%8B%9Cforward-%EC%84%9C%EB%B2%84%EB%9E%80)
 
