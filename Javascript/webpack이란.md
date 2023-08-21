@@ -61,7 +61,7 @@ function getNum() {
 
 **사용하지 않는 코드 관리**
 - 미사용 코드를 번들 파일에서 제외하는 tree shaking이라는 개념이 rollup 모듈 번들러를 통해 대중화<br>
-[tree saking이란?]()
+[tree shaking이란?](https://github.com/yejun95/Today-I-Learn/blob/master/Javascript/TreeShaking.md)
 <br>
 
 **Dynamic Loading & Lazy Loading 미지원을 해결** 
