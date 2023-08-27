@@ -39,4 +39,6 @@
 **Reference**<br>
 
 [양햄찌 : Dynamic Loading 동적 적재](https://jhnyang.tistory.com/entry/%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9CDynamic-Loading-%EB%8F%99%EC%A0%81%EC%A0%81%EC%9E%AC-Overlays-%EC%98%A4%EB%B2%84%EB%A0%88%EC%9D%B4-paging-VMM%EA%B3%BC-%EC%B0%A8%EC%9D%B4%EC%A0%90)<br>
+[vagabondms : Lazy-loading이란 무엇인가.](https://velog.io/@vagabondms/%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%84%B0%EB%94%94-Lazy-loading%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80)<br>
+[Hello Inyong : 웹 성능 최적화를 위한 Image Lazy Loading 기법](https://helloinyong.tistory.com/297)
 
