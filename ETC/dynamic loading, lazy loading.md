@@ -16,7 +16,8 @@
 -  OS의 특별한 자원을 필요로 하지 않고 프로그래머의 재량에 따라 구현이 가능  
 
 -  그러나 이는 옛날에 메모리가 부족했을때 사용된 방법이고, Virtual Memory Management가 나오고 나서<br>
-더 이상 필요하지 않게 되었다.
+더 이상 필요하지 않게 되었다.<br>
+[Vertual Memory Management]() 
 <br>
 <hr>
 <br>
