@@ -93,7 +93,7 @@ for ( let val of {1 :'a', 2 :'b', 3 :'c'} ) {
 💡 **한마디로 가장 큰 차이점은 key를 순회하냐 value를 순회하냐 이다.**
 <br>
 
-[reduce로 값은 배열끼리 객체로 묶고 for in, for of의 이중배열을 통한 특정값 뽑아내기 예제]()
+[reduce로 값은 배열끼리 객체로 묶고 for in, for of의 이중배열을 통한 특정값 뽑아내기 예제](https://github.com/yejun95/Today-I-Learn/blob/master/Javascript/reduce%EB%A5%BC%20%ED%99%9C%EC%9A%A9%ED%95%9C%20for%20in%2C%20for%20of%20%EC%9D%B4%EC%A4%91%EB%B0%B0%EC%97%B4.md)
 
 <br>
 <hr>
