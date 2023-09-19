@@ -23,7 +23,7 @@
 
 **통신 방법**
 - 192.168.0.2 가 61.123.44.1 에 통신을 하고 싶다면 NAT에 기록을 하고 통신을 하는 것이다.
-  - [NAT Gateway란 무엇인가?]()
+  - [NAT Gateway란 무엇인가?](https://github.com/yejun95/Today-I-Learn/tree/master/Network)
 
 ![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/14fd0b49-29e8-42e7-bfaf-9791c0b4a9f6)
 <br>
