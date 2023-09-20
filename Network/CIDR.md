@@ -21,6 +21,10 @@
 
 - 즉 해당 범위의 IP 를 부여받은 다면 이는 무조건 사설망이다. (ex. 내 IP 를 확인해봤는데 10.0.0.1이다. => 사설망이다)
 
+- 사설 IP 범위
+![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/1fafb807-373e-4aaa-856e-8d22983363e4)
+<br>
+
 **통신 방법**
 - 192.168.0.2 가 61.123.44.1 에 통신을 하고 싶다면 NAT에 기록을 하고 통신을 하는 것이다.
   - [NAT이란 무엇인가?](https://github.com/yejun95/Today-I-Learn/blob/master/Network/NatGateway.md)
@@ -50,6 +54,12 @@
 - 단 한줄만으로 네트워크 범위를 추측 또는 측정 할 수 있다.
 
 - /28이니 4비트만 사용가능 하므로 15번까지 가능 (144 ~ 159)
+
+- A,B,C,D : 네트워크 주소 + 호스트 주소 표시<br>
+E : 네트워크 주소가 몇 bit인지 표시
+
+- [subnet이란?]()
+<br>
 
 ![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/419ab423-5d7a-40fe-a6b7-95f547542d78)
 <br>
@@ -85,3 +95,4 @@
 
 [알고풀자 : CIDR이란?](https://algopoolja.tistory.com/97)<br>
 [INPA : CIDR 개념 쉽게 이해해보자](https://inpa.tistory.com/entry/WEB-%F0%9F%8C%90-CIDR-%EC%9D%B4-%EB%AC%B4%EC%96%BC-%EB%A7%90%ED%95%98%EB%8A%94%EA%B1%B0%EC%95%BC-%E2%87%9B-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC-%EA%B3%84%EC%82%B0%EB%B2%95)<br>
+[AWS 강의실 : 쉽게 설명하는 AWS 기초 강좌 15:사설IP & NAT & CIDR](https://www.youtube.com/watch?v=3VXLD0-Iq8A)
