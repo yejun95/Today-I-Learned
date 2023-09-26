@@ -4,6 +4,7 @@
 - Client Side Script인 자바스크립트와 반대되는 개념 (서버 측에서 실행)
 
 - IIS에 설치하여 사용이 가능 (= IISRoot 폴더가 존재하는 이유)
+  - [IIS : Internet Information Service](https://github.com/yejun95/Today-I-Learn/blob/master/ETC/IIS%EB%9E%80.md)
 <br>
 <hr>
 <br>
