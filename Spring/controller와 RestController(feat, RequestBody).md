@@ -122,9 +122,9 @@ function loadList() {
 
 - RestController에서는 `@RequestBody` 어노테이션을 통해 넘어온 Json 데이터를 받아야한다.
   - `@RequestBody`는 자바 Vo 객체(**참조타입**)만 인식
-  - 이말은 즉, 상세보기나 삭제할 때 `int idx` 형식으로 인자값을 받게 되면 `JSON.strinfigy`로 data를 전송해도 controller에서 인식불가<br>
-    int, String의 경우 **원시타입**이기 때문이다.
-  - 그렇기에 url에 쿼리파라미터를 붙여서 보내게 되고, 매개변수에 @PathVariable을 사용<br>
+  - ~이말은 즉, 상세보기나 삭제할 때 `int idx` 형식으로 인자값을 받게 되면 `JSON.strinfigy`로 data를 전송해도 controller에서 인식불가<br>
+    int, String의 경우 **원시타입**이기 때문이다.~
+  - ~그렇기에 url에 쿼리파라미터를 붙여서 보내게 되고, 매개변수에 @PathVariable을 사용~<br>
 [원시타입과 참조타입이란?](https://github.com/yejun95/Today-I-Learn/blob/master/Javascript/%EC%9B%90%EC%8B%9C%ED%83%80%EC%9E%85%EA%B3%BC%20%EC%B0%B8%EC%A1%B0%ED%83%80%EC%9E%85.md)<br>
 [JSON,parse와 JSON.stringify의 차이](https://github.com/yejun95/Today-I-Learn/blob/master/Javascript/JSON.parse()%2C%20JSON.stringify().md)
 <br>
