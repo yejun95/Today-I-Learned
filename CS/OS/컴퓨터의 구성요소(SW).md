@@ -62,6 +62,21 @@
 <hr>
 <br>
 
+**💡 key point**
+- 컴퓨터라는 세상에서 '나'는 프로세스라는 모습으로 존재한다.
+
+- 우리가 컴퓨터를 켜서 윈도우를 실행하거나, 게임에 접속하여 로그인을 할 때<br>
+'나'는 프로세스가 되는 것이다. 
+  - 즉, `Shell`이라는 프로세스로 '나`라는 주체가 존재한다. (나 == Shell)
+
+- 마치 영화 아바타처럼 어떠한 주체에 로그인을 하면 내가 그 속에 프로세스가 되는 것이다.
+<br>
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/2d2da9f8-65dc-4617-96b4-5367fed6d0b8)
+<br>
+<hr>
+<br>
+
 **Reference**<br>
 
 [널널한 개발자 : 넓고 얕게 외워서 컴공 전공자 되기](https://www.inflearn.com/course/lecture?courseSlug=%EB%84%93%EA%B3%A0%EC%96%95%EA%B2%8C-%EC%BB%B4%EA%B3%B5-%EC%A0%84%EA%B3%B5%EC%9E%90&unitId=128254)<br>
