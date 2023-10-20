@@ -73,7 +73,7 @@
 
 - 이러한 인터페이스의 역할을 하는것이 **'file'**이다.
   - Interface : 상호 연결을 해주는 것
-  - 즉, file의 형태로 인터페이스 역할을 통해 user와 kernel을 이어주는 것이다.
+  - 즉, **file의 형태로** 인터페이스 역할을 통해 user와 kernel을 이어주는 것이다.
 <br>
 
 - 일반 mp3, 영상 파일이 아니고 'Device File' 이라고 부른다.
@@ -82,3 +82,42 @@
 - user는 file에 대한 I/O를 진행하는데, 셋 중에 하나  ->  RWX (Read, Write, Excute) 를 한다.
   - read는 kernel로 부터 읽어 오는 것
   - write는 kernel로 보내는 것
+<br>
+
+- 입출력 행위의 주체인 Process가 인터페이스(file)에 대한 접근 권한을 얻어야 한다.
+  - 해당 권한은 OS가 부여
+  - OS가 허락해준 file에 대해서만 주체가 무언가를 할 수가 있다.
+  - 이 것이 kernel의 핵심 기능 중 하나인 접근 통제에 해당된다.
+<br>
+
+**User가 Hello World 화면에 출력할 때**
+1. Process 1번에서 write를 해서 정보를 Kernel로 내려보낸다.
+2. kernel의 요소가 해당 내용을 처리하고 장치에 전달한다. -> Driver -> H/W Device
+3. H/W에서 video card를 통해 화면에 출력한다.
+* 단반향 전송이기 때문에 정보가 올라올 것이 없다.
+
+- 이때 프로세스 2번이 나도 똑같은 실행 할래. 라고 하게 되고 해당 실행이 프로세스 1개 씩만<br>
+진행이 가능하다면 OS가 너 기다려. 하고 통제를 한다.
+<br>
+<hr>
+<br>
+
+### ✔ kernel의 필터
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/339d9f8d-041e-4924-9f37-73def98a04e8)
+<br>
+
+- H/W와 S/W가 정보를 주고 받을 때, 인터페이스라는 device file의 매개체로 진행된다.
+
+- 이때 매개체를 받는 요소는 File System이다.
+
+- 이후 user에서 정보가 내려올 때, 필터링을 거치게 된다.
+  - I/O 모니터링을 통해 감시  ->  실시간 감시 엔진
+  - 보통 filter를 통해 user쪽 Anti Virus 프로그램에 검사를 의뢰한다.  ->  ex) V3, 백신 프로그램 등
+  - 검사 후 실행가능한 안전한 프로그램이면 필터를 통과하여 driver -> H/W로 내려간다.
+<br>
+<hr>
+<br>
+
+**Reference**<br>
+
+[널널한 개발자 : 넓고 얕게 컴공 전공자 되기](https://www.inflearn.com/course/%EB%84%93%EA%B3%A0%EC%96%95%EA%B2%8C-%EC%BB%B4%EA%B3%B5-%EC%A0%84%EA%B3%B5%EC%9E%90/dashboard)
