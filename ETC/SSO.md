@@ -3,7 +3,7 @@
 이용가능하게 하는 인증 기능이다.
 
 - 아래 그림처럼 하나의 ID로 한 번의 인증을 거쳐 어플리케이션을 사용한다.
-
+<br>
 
 ![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/fe85a15b-6803-44cc-9e38-4333a7e85834)
 <br>
@@ -53,7 +53,9 @@
 - 웹 환경에서는 Cookie를 이용하여 토큰을 자동으로 대상 어플리케이션에 전달 가능
 
 - 보통 웹 기반에서는 해당 방식을 주로 사용한다.
-
+<br>
+<hr>
+<br>
 
 **Reference**<br>
 [JuHyeong.dev : SSO(Single Sign-On) 통합인증 이란?](https://dkswnkk.tistory.com/581)<br>
