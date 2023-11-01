@@ -55,3 +55,18 @@ public class OrdersService implements SessionBean {
 <hr>
 <br>
 
+### ✔ 스프링의 역사
+- 2002년 로드 존슨 책 출간
+
+- EJB의 문제점 지적
+
+- EJB 없이도 충분히 고품질의 확장 가능한 애플리케이션을 개발할 수 있음을 보여주고, 30,000라인 이상의 기반 기술을 예제 코드로 선보임
+  - 여기에 지금의 스프링 핵심 개념과 기반 코드가 들어가 있음.
+  - BeanFactory, ApplicationContext, POJO, 제어의 역전, 의존관계주입
+<br>
+
+- 책 출간 직후 Juergen Hoeller(유겐 휠러), Yann Caroff(얀 카로프)가 로드 존슨에게 오픈소스 프로젝트를 제안
+  - 스프링의 핵심 코드의 상당수는 유겐 휠러가 지금도 개발
+<br>
+
+- 스프링 이름은 전통적인 J2EE(EJB)라는 겨울을 넘어 새로운 시작이라는 뜻으로 지음 (개발자들에게 봄이 왔다!)
