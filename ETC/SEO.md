@@ -34,28 +34,126 @@
 <br>
 
 ### ✔ 검색엔진 최적화에 영향을 주는 요인
-- 페이지 타이틀(title)
+**페이지 타이틀(title)**
 
-- 올바른 meta태그 사용
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/c9848310-95ce-4593-8dca-4aecf20ebf2a)
 
-- 캐노니컬(Canonical) 태그 사용
+- title 태그는 html 문서 내 head 태그의 자식요소 중 하나이다
 
-- 모바일 친화적인 웹
+- 브라우저 탭에 표시되며 본문 콘텐츠 내에서는 표시되지 않는다.
 
-- 시맨틱 마크업, 의미있는 문서 작성과 링크(a), 이미지(img) 등 올바른 태그와 그에 맞는 속성 사용
+- 본문 콘텐츠를 가장 잘 표현하는 키워드를 고른다.
 
-- SSL(https) 사용 여부 ( http❌ | https✅ )
+- 각 페이지마다 구체적이고 적절한 단어를 사용하여 타이틀을 정한다.
+<br>
+<br>
 
-- 핵심적인 웹 지표(LCP,FID,CLS)와 로딩속도
+**올바른 meta태그 사용**
+- meta 태그는 html 문서 내 head 태그에 포함한다.
 
-- 백링크
+- UTF-8, viewport, description, keywords 등 많은 것이 있다.
 
-- 연관성있는 양질의 콘텐츠를 주기적으로 제공
+- 특히 og 태그의 경우 웹페이지 미리보기 기능인데, 카톡에서 링크를 보내면 딸려오는 이미지를 말한다.
 
-- 노출 대비 클릭률
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/b0c39375-913f-4ead-af7f-ff46ada29801)
+<br>
+
+- 페이스북, 네이버, 카카오톡에 링크 공유 시 보여질 미리보기를 설정할 수 있다.
+
+```javascript
+<!-- 웹 페이지 URL -->
+<meta property="og:url" content="www.youtube.com"> 
+
+<!-- 콘텐츠 제목 -->
+<meta property="og:title" content="YouTube">
+
+<!-- 콘텐츠 설명 -->
+<meta property="og:description" content="여기를 눌러 링크를 확인하세요."> 
+
+<!-- 웹페이지,콘텐츠 타입 (ex: blog,article,website..) -->
+<meta property="og:type" content="video"> 
+
+<!-- 미리보기 썸네일 이미지 -->
+<meta property="og:image" content="../images/thumb.png"> 
+
+<!-- 사이트 이름 -->
+<meta property="og:site_name" content="YouTube"> 
+```
+<br>
+<br>
+
+**캐노니컬(Canonical) 태그 사용**
+- 캐노니컬 태그(canonical tag)란 한 화면 내에서 여러개의 URL이 중복되어 사용될 때 검색엔진에 대표 URL을 알려주는 태그이다.
+
+- ex) website라는 사이트의 main이라는 페이지 내에서 아래의 URL들이 사용될 경우 html의 head내에 캐노니컬 태그로 대표되는 URL을 지정해주는 것이다.
+```javascript
+https://www.website.com/main?id=1
+https://www.website.com/main?id=as200-21d5-1e401ad123
+...
+
+<link rel="canonical" href="https://www.website.com/main">
+```
+<br>
+<br>
+
+**모바일 친화적인 웹**
+- `meta name="viewport"`태그를 통해 검색엔진에 해당 사이트가 모바일 친화적이라는 것을 알려주는 것이 최적화 점수를 많이 받을 수 있는 방법
+
+- [여기](https://medium.com/search-engine-optimization-marketing/%EA%B5%AC%EA%B8%80%EC%9D%B4-%EC%95%8C%EB%A0%A4%EC%A3%BC%EB%8A%94-seo-%EB%B3%B4%EB%8B%A4-%EB%8D%94-%EC%A4%91%EC%9A%94%ED%95%9C-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EA%B2%80%EC%83%89%EC%97%94%EC%A7%84%EC%B5%9C%EC%A0%81%ED%99%94-a6a6f73f47b7) 에서 자세한 설명 확인
+<br>
+<br>
+
+**시맨틱 마크업, 의미있는 문서 작성과 링크(a), 이미지(img) 등 올바른 태그와 그에 맞는 속성 사용**
+- `heading` 태그(h1,h2,h3 ...)의 적절한 사용과 `img`태그 `a`태그의 정확한 사용은 접근성 측면에서도 중요하다.
+
+- `title`과 `alt` 속성을 사용해서 어떠한 링크인지, 어떻게 이동하는지(ex.새창열림), 어떤 이미지인지 설명되어야한다.
+<br>
+<br>
+
+**SSL(https) 사용 여부 ( http❌ | https✅ )**
+<br>
+<br>
+
+**핵심적인 웹 지표(LCP,FID,CLS)와 로딩속도**
+- 핵심적인 웹 지표(Core web vitals)란 실제 사용 데이터에 따른 페이지의 성능을 보여주는 지표이다.
+
+- 페이지의 성능이 중요한 이유는 사용자의 이탈률 때문이다. 당연하게도 로드 시간이 길수록 이탈률이 높아진다.
+```
+페이지 로드 시간이 1초에서 3초로 늘어나면 이탈률은 32% 증가합니다.
+페이지 로드 시간이 1초에서 6초로 늘어나면 이탈률은 106% 증가합니다.
+
+[출처] https://support.google.com/webmasters/answer/9205520?hl=ko#about_data
+```
+
+- LCP, FID, CLS 세 가지 항목으로 구성되어있다.
+  - LCP : 사용자가 URL을 요청한 시점부터 페이지 내에서 시각적으로 가장 큰 콘텐츠를 그리는데에 걸리는 시간이다.
+  - FID : 웹 페이지가 사용자의 동작(링크 클릭, 버튼 탭 등)에 반응할 때까지 걸리는 시간이다.
+  - CLS : 누적 레이아웃 변경. 페이지가 덜컥거리면서 로딩되면 사용자는 원하는 곳에 빠르게 접근할 수 없다.
+<br>
+<br>
+
+**백링크**
+- 검색엔진이 인식 가능한 백링크는 a태그와 같은 링크 태그로 구성된 '클릭 및 이동'이 가능한 하이퍼링크이다.
+```
+www.google.com ❌
+www.google.com ✅
+```
+<br>
+<br>
+
+**연관성있는 양질의 콘텐츠를 주기적으로 제공**
+- 높은 성능과 접근성으로 좋은 사용자 경험을 제공하여 웹 페이지의 클릭률과 체류시간을 높히고, 이탈률은 낮춘 콘텐츠
+<br>
+<br>
+
+**노출 대비 클릭률**
+- 1~5번째 검색결과에서 65% 이상의 클릭률이 발생하고, 1페이지 내에서 70% 이상의 클릭률이 발생한다고 한다.
+
+- 순위를 높히기 위해서는 앞서 나열한 모든 요소들, 양질의 콘텐츠, 마케팅 요소 등 많은 요인들이 조화를 이루어야 한다.
+
+- SEO CTR(Click Through Rate) = 클릭수(Click) / 검색량(Search Volume)
 
 - 이외에도 키워드 연구, 웹사이트 내부 최적화, 외부 링크 구축, 속도 최적화, 사용자 경험 개선 등 다양한 요소가 포함될 수 있다.
-
 <br>
 <hr>
 <br>
