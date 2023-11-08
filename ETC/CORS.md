@@ -3,6 +3,7 @@
 
 - 출처(origin) : URL의 프로토콜, 호스트(도메인), 포트를 의미하며,  만약 두 객체의 Protocol, Host, Port가 모두 일치하는 
 경우 같은 출처를 가졌다고 말한다.
+
 ![image](https://github.com/bjsystems/rnd/assets/121341413/a3d72ead-9a9a-4221-806b-38bf4c792f3c)
 <br>
 
