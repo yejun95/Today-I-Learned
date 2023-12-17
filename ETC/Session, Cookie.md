@@ -40,6 +40,8 @@
 - HTTP의 일종으로 사용자가 어떠한 웹 사이트를 방문할 경우, 그 사이트가 사용하고 있는 서버에서 사용자의 컴퓨터에 저장하는 작은 기록 정보 파일이다.
 
 - HTTP에서 클라이언트의 상태 정보를 클라이언트의 PC에 저장하였다가 필요시 정보를 참조하거나 재사용할 수 있다.
+
+![image](https://github.com/BJSNuruhee/levelup/assets/121341413/d253cec5-689e-45f2-a7b3-49c0d28d5dbb)
 <br>
 
 **동작 순서**
@@ -76,6 +78,10 @@
 - 즉, 방문자가 웹 서버에 접속해 있는 상태를 하나의 단위로 보고 그것을 세션이라고 한다.
 
 - 쿠키와는 다르게 웹 서버에 정보를 저장한다.
+
+![image](https://github.com/BJSNuruhee/levelup/assets/121341413/cd9f38e6-ec58-4297-bc82-3aea0414ea14)
+
+![image](https://github.com/BJSNuruhee/levelup/assets/121341413/1adeabbe-eb7c-4df0-87f5-84fd7d4d329e)
 <br>
 
 **주요 특징**
@@ -115,4 +121,3 @@
 [99C0RN : 쿠키, 세션 특징 및 차이](https://hahahoho5915.tistory.com/32)<br>
 [IT핥기 : [JSP] Cookie(쿠키) 이해하기](https://www.youtube.com/watch?v=a2tvTi9qgaE&list=PLpzDq-W37heSMxWj0XEVfM1rUcHBDjhm3&index=16)<br>
 [IT핥기 : [JSP] Session(세션) 이해하기](https://www.youtube.com/watch?v=VrWK1VPW5Qg&t=287s)
-
