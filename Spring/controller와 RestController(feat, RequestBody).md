@@ -256,6 +256,16 @@ public class BoardRestController {
 - 이로 인한 쿼리파라미터 사용 및 `@PathVariable`, `@RequestBody`등의 추가적인 어노테이션 생성
 
 - RestController가 참조타입만 가능하기 때문에 ajax의 data 속성으로 보낼 수 있느냐 없느냐의 차이
+
+- HTTP ResponseBody가 생성되는 방식이고, @Controller + @ResponseBody 조합이 @RestController 이다.
+
+- @Controller와 @RestController의 차이점은 용도의 차이라고 볼 수 있다.
+
+- @Controller 어노테이션은 공식적으로 Spring 2.5 버전에서 추가되었고, @RestController는 Spring 4.0 버전에서 추가되었다.
+
+- 과거에는 JSP, HTML과 같은 View를 전달해 주었기에 주로 @Controller를 사용했고,<br>
+최근에는 Frontend / Backend을 나누어 개발하는 경우가 많기에 Backend에서 Rest Api를<br>
+통해 JSON으로 데이터만 전달하기 때문에 편리성을 위해 @RestController를 사용한다.
 <br>
 <hr>
 <br>
