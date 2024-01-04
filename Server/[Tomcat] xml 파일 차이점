@@ -1,0 +1,156 @@
+## 톰캣의 xml 파일 (context, web, server)
+- 기본적으로 `context.xml, web.xml, server.xml`은 서버가 start 되는 시점에 읽어 들여서
+다음 동작을 준비하게 된다.
+<br>
+<hr>
+<br>
+
+### ✔ context.xml
+- 웹 애플리케이션의 자원을 명시해주는 파일이다.
+
+- 톰캣 서버가 실행되면 context.xml 파일의 WatchedResource 태그에 명시된 경로에 따라 web.xml의 소스코드를 읽게 된다.
+
+![image](https://github.com/BJSNuruhee/levelup/assets/121341413/6cc07b3d-2134-4a42-8fb7-1c3ae1e52e0a)
+<br>
+<br>
+
+
+- DB 연결 기능도 한다.
+  - server.xml에서도 설정이 가능하지만 서버 리소스에 관한 설정은 개별 .xml 파일을 만들어서 하는 걸 권장하고 있다.
+    - server.xml은 수정 적용 시 서버를 재시작해야 하지만 xml 파일을 분리하면 재시작할 필요가 없다.
+    - #17
+<br>
+
+ - server.xml에서 설정 할경우 Host 태그 내의 Context 태그 안에서 설정 (서비스 별 설정이 쉬워 보인다.)
+   - 아래 사진은 server.xml에서 DB 설정을 하는 예시
+
+![image](https://github.com/BJSNuruhee/levelup/assets/121341413/682f598f-cd2e-4bf8-9d86-d49e72408897)
+<br>
+
+**DB 연결 방법**
+```
+    <Resource name="jdbc/myDB" auth="Container" type="javax.sql.DataSource"
+              maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+              username="dbuser" password="dbpass"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/mydatabase"/>
+```
+<br>
+<hr>
+<br>
+
+### ✔ web.xml
+- 톰캣에 있는 모든 web application의 기본설정을 정의한다.
+
+- 톰캣의 실행환경 정보가 있는 '환경설정' 파일이다.
+
+- 각종 servlet 설정, servlet 맵핑, 필터, 인코딩 등을 담당한다.
+<br>
+
+**DefaultServlet : Servlet Mapping 가진 모든 요청을 처리한다.**
+```
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+```
+<br>
+<br>
+
+**JspServlet : JSP의 컴파일과 실행을 담당하는 Servlet**
+```
+    <servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>fork</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>xpoweredBy</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+```
+<br>
+<br>
+
+**Servlet/JSP 맵핑**
+```
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- The mappings for the JSP servlet -->
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+        <url-pattern>*.jspx</url-pattern>
+    </servlet-mapping>
+```
+<br>
+<br>
+
+**session 유효시간 설정**
+```
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+```
+<br>
+<br>
+
+**welcome file list**
+```
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+```
+<br>
+<br>
+
+**WEB-INF/web.xml 과 conf/web.xml의 차이**
+- 둘 다 웹 어플리케이션의 환경 설정을 정의하는 것에서는 큰 차이가 없다.
+
+- conf/web.xml은 default 설정이라고 보면 된다.
+
+- WEB-INF/web.xml은 하나의 어플리케이션에 적용될 구체적인 속성을 설정한다고 보면 된다.
+<br>
+<hr>
+<br>
+
+### ✔ server.xml
+- 톰캣의 구조를 이루고 있는 파일이며, 요청에 따른 응답 값을 가지고 있다.
+
+- #15 참고
+<br>
+<hr>
+<br>
+
+### ✔ 정리
+- 서버 실행 시 각 xml 파일이 한번씩 읽혀지면서 환경설정이 적용된다.
+
+- web.xml의 경우 conf/web.xml이 먼저 적용 후 WEB-INF/web.xml 개별 설정이 적용된다.
+
+- DB 설정은 context.xml, server.xml 둘 다 가능하다.
+<br>
+<hr>
+<br>
+
+**Reference**<br>
+
+[지식보단 지혜로운 : tomcat conf/web.xml WEB-INF/web.xml 차이](https://ppowerppush.tistory.com/73)<br>
+[ahk.log : server.xml, web.xml](https://velog.io/@ahk/server.xml-web.xml)<br>
