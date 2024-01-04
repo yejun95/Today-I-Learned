@@ -55,4 +55,6 @@
 <hr>
 <br>
 
-- SpringBoot에서 외장 톰캣 설정 방법 : #7
+- [SpringBoot에서 외장 톰캣 설정 방법](https://github.com/yejun95/Today-I-Learned/blob/master/SpringBoot/SpringBoot%EC%97%90%EC%84%9C%20%EC%99%B8%EC%9E%A5%20%ED%86%B0%EC%BA%A3%20%EC%84%A4%EC%A0%95%20%EB%B0%A9%EB%B2%95.md)<br>
+- [외장 톰캣에서 profile 설정하기](https://github.com/yejun95/Today-I-Learned/blob/master/SpringBoot/%EC%99%B8%EB%B6%80%20%ED%86%B0%EC%BA%A3%EC%97%90%EC%84%9C%20profile%20%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0.md)
+
