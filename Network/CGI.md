@@ -55,6 +55,14 @@
 <hr>
 <br>
 
+## 2024-01-08 추가 내용
+- CGI란 단순 규약이라는 점이며, WAS처럼 프로그램 자체를 말하는 것은 아니다.
+
+- 때문에 WAS에 사용되는 Servlet이 CGI라는 규약을 지키는 것이다.
+<br>
+<hr>
+<br>
+
 **Reference**<br>
 
 [탐p슨 : Common Gateway Interface(CGI)란 무엇인가](https://live-everyday.tistory.com/197)<br>
