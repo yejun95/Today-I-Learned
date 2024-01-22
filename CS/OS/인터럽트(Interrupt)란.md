@@ -29,3 +29,12 @@
 - 주 프로그램 상태 레지스터와 PC 등을 스택에 잠시 저장
 - 인터럽트 서비스 루틴으로 점프, 처리
 - 다시 주 프로그램 작업 복귀
+
+
+<br>
+<hr>
+<br>
+
+**Reference**<br>
+
+[wannabeking : 인터럽트(Interrupt)란?](https://velog.io/@pppp0722/%EC%9D%B8%ED%84%B0%EB%9F%BD%ED%8A%B8Interrupt%EB%9E%80)
