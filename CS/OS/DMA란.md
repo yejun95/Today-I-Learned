@@ -44,6 +44,7 @@ CPU는 대기하지 않아도 된다.
 
 ![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/753f6838-d142-44fb-a898-ede650c67fd3)
 <br>
+<hr>
 <br>
 
 ### ✔ DMA가 접근하는 방식
