@@ -15,6 +15,10 @@
 
 ![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/c614d7a4-23ad-4f92-b391-ef89042a0225)
 <br>
+<br>
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/a1f03909-a776-47b8-be03-1aae2835d322)
+<br>
 <hr>
 <br>
 
@@ -26,6 +30,10 @@
 - VDI를 사용하면 업무용 PC와 인터넷 PC로 구분하여 보안 문제를 해결할 수 있다.
 
 - 원격 액세스, 비용 절감, 보안, 중앙집중식 관리
+
+- 시간과 장소의 제약이 없다.
+
+- 고정VDI의 경우 회의실, 해외 출장 등에서도 자신의 컴퓨터 환경을 그대로 사용할 수 있기 때문에 업무의 효율성을 제고시켜 준다.
 <br>
 <hr>
 <br>
@@ -47,6 +55,10 @@
 <br>
 <hr>
 <br>
+
+### VDI 솔루션 비교
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/056b6e53-3d90-4bd8-b2e2-331059174336)
+
 
 **Reference**<br>
 
