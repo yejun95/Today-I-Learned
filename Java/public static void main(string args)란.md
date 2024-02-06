@@ -71,6 +71,8 @@ e.pub();
 
 ### ✔ return값이 없는 반환 타입 void
 - return문은 메서드의 실행이 종료되었을 때, 메서드의 실행 결과를 전달해주는 역할을 수행한다.
+<br>
+<br>
 
 **main 메서드의 경우**
 - 다른 메서드들은 return 값이 있을 수도, 없을 수도 있다.
@@ -124,3 +126,30 @@ public class Example {
 <br>
 
 **명령 프롬프트로 실행**
+- 컴파일된 .class 파일을 실행시킨다.
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/2d67fcb1-59f5-4232-b045-d0125be96e98)
+<br>
+<br>
+
+- * java -classpath . Example aa bb cc
+  - Example.class를 실행하고, main함수에 aa, bb, cc를 String 배열 형태로 전달한다.
+<br>
+
+- 실행결과
+```
+총 3개의 값을 입력받았습니다.
+입력 내용 : [aa, bb, cc]
+```
+<br>
+
+- 보는 바와 같이 main 메서드가 전달받는다는 String 배열은, 바로 사용자가 커맨드라인에 입력하는 문자열들을 가리키는 것이다.
+
+- 커맨드라인에 입력한 문자열들(aa, bb, cc)의 갯수와 그 내용이 출력된 것을 확인할 수 있다.
+<br>
+<hr>
+<br>
+
+**Reference**<br>
+
+[AtomicLiquors : [Java] public static void main(String[] args)는 무슨 뜻인가요?](https://atomicliquors.tistory.com/7)<br>
