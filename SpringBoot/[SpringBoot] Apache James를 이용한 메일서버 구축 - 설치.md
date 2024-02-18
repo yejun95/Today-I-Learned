@@ -1,5 +1,5 @@
-- [[SpringBoot] Apache James를 이용한 메일서버 구축 - 설정]()
-- [[SpringBoot] Apache James를 이용한 메일서버 구축 - 메일 클라이언트]()
+- [[SpringBoot] Apache James를 이용한 메일서버 구축 - 설정](https://github.com/yejun95/Today-I-Learned/blob/master/SpringBoot/%5BSpringBoot%5D%20Apache%20James%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%EB%A9%94%EC%9D%BC%EC%84%9C%EB%B2%84%20%EA%B5%AC%EC%B6%95%20-%20%EC%84%A4%EC%A0%95.md)
+- [[SpringBoot] Apache James를 이용한 메일서버 구축 - 메일 클라이언트](https://github.com/yejun95/Today-I-Learned/blob/master/SpringBoot/%5BSpringBoot%5D%20Apache%20James%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%9C%20%EB%A9%94%EC%9D%BC%EC%84%9C%EB%B2%84%20%EA%B5%AC%EC%B6%95%20-%20%EB%A9%94%EC%9D%BC%20%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8.md)
 <br>
 <hr>
 <br>
