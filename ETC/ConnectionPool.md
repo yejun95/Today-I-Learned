@@ -11,12 +11,18 @@
 ![image](https://github.com/yejun95/Today-I-Learn/assets/121341413/5a296fde-5806-4e8c-bd47-3236a78916b5)
 <br>
 
+1. 서버(WAS)는 미리 DB와 일정 수의 connection을 맺은 후 connection 객체를 Pool에 저장합니다.
 
+2. 사용자의 요청이 발생하게 되면 서버(WAS)는 Pool에 connection을 요청합니다.
+
+3. connection을 얻은 후 쿼리를 실행하여 데이터를 read / write 합니다.
+
+4. connection을 Pool에 반납합니다.
 <br>
 <hr>
 <br>
 
-**✔ 사용 이유**
+### ✔ 사용 이유
 
 - 매번 DB에 직접 연결해서 처리하는 경우, 드라이버 로드 후 커넥션 객체를 받아와야 한다.<br>
 그러면 클라이언트 요청시 마다 연결/종료가 반복되기 때문에 비효율적.
@@ -48,19 +54,21 @@ try {
 ```
 <br>
 
-**✔ 특징**
-
+### ✔ 특징
 - WAS가 실행되면서 connection 객체를 미리 pool에 생성
+ 
 - HTTP요청에 따라 pool에서 connection 객체를 가져다 쓰고 반환
+ 
 - 위와 같은 방식으로 물리적 DB 연결 부하 줄임
+ 
 - pool에 미리 connection이 생성되어 있기 때문에 연결 시간이 빠르다.
+ 
 - 커넥션 재사용 및 커넥션 수를 제한적으로 설정 가능
 <br>
 <hr>
 <br>
 
-**✔ 문제점**
-
+### ✔ 문제점
 **동시 접속자가 많을 경우**
 <br>
 
@@ -68,11 +76,32 @@ try {
 <br>
 
 - connection이 없을 경우 클라이언트는 connection이 반환될 때까지 번호순대로 대기 상태가 된다.
-- connection 수 작게 설정 : 원활한 서비스가 불가능
-- connection 수 많게 설정 : 메모리를 많이 사용하여 오히여 성능 저하 발생
+  - 3초 이내로 응답이 없을 시, 에러 페이지로 신속하게 이동시키는 것도 하나의 방법
+ <br>
+ 
+- connection pool 작게 설정
+  - 대기시간이 늘어나지만 적은 메모리 사용
+  - 원활한 서비스가 불가능
 <br>
 
-💡 connection Pool을 사용한다면 유저 수에 따라 connection 수를 적절하게 지정해야 한다.
+- connection pool 크게설정
+  - 대기시간이 줄어드는 대신 메모리 소모가 크다.
+  - 서버 성능 이상의 pool을 설정하면 메모리를 많이 사용하여 오히여 성능 저하 발생
+<br>
+<hr>
+<br>
+
+### ✔ Summary
+- connection Pool을 사용한다면 유저 수에 따라 connection 수를 적절하게 지정해야 한다.
+ 
+- DB Pool 설정은 성능에 직접적으로 영향을 주는 중요한 요인이므로 최적화된 설정 검증을 위해서는 반드시 성능 테스트를 수행해야 한다.
+  - initialSize	: BasicDataSource Class 생성 후 최초로 getConnection() 메서드를 호출할 때 Connection Pool에 채워 넣을 Connection의 개수
+  - maxActive	: 동시에 사용할 수 있는 최대 Connection 개수(기본값:8). maxTotal(2.x)
+  - minIdle	: 최소한으로 유지할 Connection의 개수(기본값:0)
+  - maxIdle	: Connection Pool에 반납할 때 최대로 유지될 수 있는 Connection의 개수(기본값:8
+<br>
+
+- 
 <br>
 <hr>
 <br>
