@@ -1,5 +1,4 @@
  ## Conneciton Pool(DBCP)이란?
-
  - 웹 컨테이너(WAS)가 실행되면서 DB와 미리 connection을 해놓은 객체들을 pool에 저장해두었다가<br>
  클라이언트 요청이 오면 connection을 빌려주고, 처리가 끝나면 다시 connection을 반납 받아<br>
  pool에 저장하는 방식
@@ -98,10 +97,7 @@ try {
   - initialSize	: BasicDataSource Class 생성 후 최초로 getConnection() 메서드를 호출할 때 Connection Pool에 채워 넣을 Connection의 개수
   - maxActive	: 동시에 사용할 수 있는 최대 Connection 개수(기본값:8). maxTotal(2.x)
   - minIdle	: 최소한으로 유지할 Connection의 개수(기본값:0)
-  - maxIdle	: Connection Pool에 반납할 때 최대로 유지될 수 있는 Connection의 개수(기본값:8
-<br>
-
-- 
+  - maxIdle	: Connection Pool에 반납할 때 최대로 유지될 수 있는 Connection의 개수(기본값:8)
 <br>
 <hr>
 <br>
