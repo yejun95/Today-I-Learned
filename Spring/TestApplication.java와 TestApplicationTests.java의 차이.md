@@ -1,4 +1,4 @@
-## TestApplication.java와 TestApplicationTests.java의 차이
+## {name}Application.java와 {name}ApplicationTests.java의 차이
 ### ✔ TestApplication.java
 - `@SpringBootApplication` 어노테이션이 적용된 클래스로, 애플리케이션을 실행할 때 애플리케이션의 시작점이 된다.
 
