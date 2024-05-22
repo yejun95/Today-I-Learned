@@ -90,14 +90,43 @@ try {
 <hr>
 <br>
 
-### ✔ Summary
-- connection Pool을 사용한다면 유저 수에 따라 connection 수를 적절하게 지정해야 한다.
- 
-- DB Pool 설정은 성능에 직접적으로 영향을 주는 중요한 요인이므로 최적화된 설정 검증을 위해서는 반드시 성능 테스트를 수행해야 한다.
-  - initialSize	: BasicDataSource Class 생성 후 최초로 getConnection() 메서드를 호출할 때 Connection Pool에 채워 넣을 Connection의 개수
-  - maxActive	: 동시에 사용할 수 있는 최대 Connection 개수(기본값:8). maxTotal(2.x)
-  - minIdle	: 최소한으로 유지할 Connection의 개수(기본값:0)
-  - maxIdle	: Connection Pool에 반납할 때 최대로 유지될 수 있는 Connection의 개수(기본값:8)
+## 내용 추가 2024-05-23
+
+### ✔ connection이 비용이 큰 이유
+- connection pool을 사용하는 이유는 연결 시간을 줄여서 자원의 소모를 최소화하기 위함이다.
+
+- 그렇다면 이러한 connection이 왜 비용이 많이 드는 것인가?
+
+- Database는 최초 접속 시 TCP 통신을 하기 때문이다.
+
+- 아래 그림을 봐보자
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/c36bd952-db38-4a26-af5d-707ecfe60db3)
+> TCP의 3-way-handshake 과정
+<br>
+
+- 연결이라는 것은 클라이언트와 서버가 TCP 연결을 하는 것을 말한다.
+
+- 이때 synchronize와 acknowledgment를 서로 주고 받으면서 연결이 이루어지므로, 해당 과정에서 높은 비용이 발생하는 것이다.
+
+- 또한 데이터 전송이 종료되면 사용한 리소스를 반환하기 위해 4-way-handshake 과정도 수행한다.
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/f6d9babd-6405-420e-9138-601bdc31ccc4)
+> TCP의 4-way-handshake 과정
+<br>
+
+- 즉, connection pool을 사용하지 않으면 이러한 TCP 연결과 해제를 반복하기 때문에 자원의 소모가 커<br>
+이를 보완하기 위해 Connection Pool이란 개념이 나왔다.
+
+**wireshark를 이용한 TCP 연결 시간 측정**
+- 
+<br>
+<hr>
+<br>
+
+### ✔ connection vs connection pool 성능 비교
+- 
+
 <br>
 <hr>
 <br>
