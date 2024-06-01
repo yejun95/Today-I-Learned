@@ -1,4 +1,4 @@
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/fd59cdc2-8523-41d2-b011-ddc441f1dc90) ## Conneciton Pool(DBCP)이란?
+## Conneciton Pool(DBCP)이란?
  - 웹 컨테이너(WAS)가 실행되면서 DB와 미리 connection을 해놓은 객체들을 pool에 저장해두었다가<br>
  클라이언트 요청이 오면 connection을 빌려주고, 처리가 끝나면 다시 connection을 반납 받아<br>
  pool에 저장하는 방식
@@ -252,20 +252,20 @@ Pool 3차 연결 성능 0.7635999992489815
 
 - wireshark 확인
 
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/dfcdef44-1e4c-4816-926b-30c2c3c4e449)
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/366049da-3fc0-4dbd-b1ee-123d922ea0db)
 <br>
 
 - TCP 대화 확인
 
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/98fcf4da-4409-4690-89f4-43fe9809d351)
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/cf24e4e8-cba3-44f7-80e9-d380438811c5)
 > 3way hand-shake 발생
 <br>
 
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/2a0827b0-8610-4c9b-aac1-93a89734b044)
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/4bdb6d76-5135-44e8-9ef8-c1b1f9d21866)
 > 3way hand-shake 발생
 <br>
 
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/fc443dae-8678-4814-95b0-8d4e9e402e4d)
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/a6846c49-413b-4fab-ac63-12e00c8e47d0)
 > 3way hand-shake 발생
 <br>
 
