@@ -259,12 +259,15 @@ Pool 3차 연결 성능 0.7635999992489815
 
 ![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/98fcf4da-4409-4690-89f4-43fe9809d351)
 > 3way hand-shake 발생
+<br>
 
 ![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/2a0827b0-8610-4c9b-aac1-93a89734b044)
 > 3way hand-shake 발생
+<br>
 
 ![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/fc443dae-8678-4814-95b0-8d4e9e402e4d)
 > 3way hand-shake 발생
+<br>
 
 
 <br>
