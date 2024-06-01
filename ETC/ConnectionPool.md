@@ -1,4 +1,4 @@
- ## Conneciton Pool(DBCP)이란?
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/fd59cdc2-8523-41d2-b011-ddc441f1dc90) ## Conneciton Pool(DBCP)이란?
  - 웹 컨테이너(WAS)가 실행되면서 DB와 미리 connection을 해놓은 객체들을 pool에 저장해두었다가<br>
  클라이언트 요청이 오면 connection을 빌려주고, 처리가 끝나면 다시 connection을 반납 받아<br>
  pool에 저장하는 방식
@@ -117,17 +117,155 @@ try {
 
 - 즉, connection pool을 사용하지 않으면 이러한 TCP 연결과 해제를 반복하기 때문에 자원의 소모가 커<br>
 이를 보완하기 위해 Connection Pool이란 개념이 나왔다.
-
-**wireshark를 이용한 TCP 연결 시간 측정**
-- 실제로 3-way-handshake 과정을 패킷 분석 툴인 wireshark를 통해 확인이 가능하다.\
-
-- 
-<br>
-<hr>
 <br>
 
-### ✔ connection vs connection pool 성능 비교
-- 
+➡ **wireshark를 이용한 handshake 과정 확인**
+- 실제로 3-way-handshake 과정을 패킷 분석 툴을 사용하면 확인이 가능하다.
+
+- 해당 글에서는 wireshark를 사용
+
+- 먼저 VSCode에서 이용할 스크립트는 다음과 같다.
+
+```javascript
+'use strict';
+const { PerformanceObserver, performance } = require('perf_hooks');
+var util = require('util');
+const mysql = require('mysql2');
+
+var conn = mysql.createConnection({ 
+    host : '127.0.0.1',  
+    user : 'root',
+    password : 'root',
+    database : 'connectionpool'
+  });
+
+const pool = mysql.createPool({  // 커넥션 풀 생성
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'connectionpool',
+  connectionLimit: 5
+})
+
+conTest(true, 1);
+conTest(false, 1);
+conTest(false, 2);
+conTest(false, 3);
+
+async function conTest(boolean, num) {
+  var t0 = performance.now();
+  if(boolean) {
+    conn.connect(); // mysql과 연결
+    const sql = "insert into testdb values (null, 'test')"
+    conn.query(sql, function(err, rows, fields)
+    {
+      if (err) {
+        console.error('error connecting: ' + err.stack);
+      }
+    });
+    var t1 = performance.now();
+    conn.end(); // 연결 해제
+  } else {
+    pool.getConnection(function(err, connection) {
+      if(err) 
+          throw err;
+        else {
+          // query 실행 
+          connection.query(
+            "insert into testdb values (null, 'test')", function(err, results) {
+          }); 
+          // connection을 pool로 반환
+          connection.release();
+        }
+    });  
+    var t1 = performance.now();
+  }
+
+  if(boolean) {
+    console.log(`getConnection ${num}차 연결 성능`, t1 - t0)
+  } else {
+    console.log(`Pool ${num}차 연결 성능`, t1 - t0)
+  }
+}
+```
+<br>
+
+- 함수 `conTest()`는 if 조건을 통해 일반 connection과 pool 이용한 커넥션으로 나뉜다.
+
+- 이를 각각 2번, 3번 실행시켜서 hand-shake 과정이 어떻게 일어나는지 확인해보자.
+  - pool을 사용하지않는 함수는 mysql connect 비동기 문제로 인해 동일한 함수(`conTest(true, 1)`)를 두번 실행으로 진행
+<br>
+<br>
+
+- 먼저 connection 연결로 `conTest(true, 1)` 함수를 2번 실행 (pool 실행 함수 4개는 주석 처리)
+
+```
+$ node nodeQueryConnectionPool.js 
+getConnection 1차 연결 성능 0.37299999967217445
+
+$ node nodeQueryConnectionPool.js 
+getConnection 1차 연결 성능 0.354500001296401
+
+```
+> 성능이 일정 수준으로 비슷하게 나옴
+<br>
+
+- 이제 wireshark를 통해 hand-shake 과정을 확인해보자
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/f5b5e439-d843-45a4-aeef-1712ff6f2ab7)
+> mysql로 검색하면 필터링 가능
+<br>
+
+- node를 실행하면 위와 같이 패킷을 볼 수 있는데, 우클릭을 눌러서 더 자세한 TCP 정보 확인이 가능하다.
+  - 1개의 연결당 하나의 대화만 확인 가능
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/a4d028cd-4b0a-4e5e-94e2-4a92dba648f3)
+> TCP 클릭
+<br>
+
+- 첫 번째 연결 TCP 확인
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/d621ffa3-2867-4c9f-a4ec-8899441a4fa3)
+<br>
+
+- 두 번째 연결 TCP 확인
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/859a8d9f-9aea-488f-8529-b4631ecaca9d)
+<br>
+
+- pool을 사용하지 않았기 때문에 query 실행에 대해서 연결, 해제 과정을 지속적으로 반복함
+  - 즉, 트래픽이 늘어날수록 hand-shake 과정이 늘어나면서 서버에 부하를 준다.
+<br>
+<br>
+
+- 이제는 pool을 사용하여 hand-shake 과정을 확인해보자.
+  - `conTest(true, 1)`을 주석처리하고 `conTest(fasle, {num}`) 함수를 3번 실행
+
+```
+$ node nodeQueryConnectionPool.js 
+Pool 1차 연결 성능 19.19319999963045
+Pool 2차 연결 성능 0.3980000000447035
+Pool 3차 연결 성능 0.7635999992489815
+```
+> 1차 연결시에는 pool이 없기 때문에 지연, 이후 성능이 빨라짐
+<br>
+
+- wireshark 확인
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/dfcdef44-1e4c-4816-926b-30c2c3c4e449)
+<br>
+
+- TCP 대화 확인
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/98fcf4da-4409-4690-89f4-43fe9809d351)
+> 3way hand-shake 발생
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/2a0827b0-8610-4c9b-aac1-93a89734b044)
+> 3way hand-shake 발생
+
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/fc443dae-8678-4814-95b0-8d4e9e402e4d)
+> 3way hand-shake 발생
+
 
 <br>
 <hr>
