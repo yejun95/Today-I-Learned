@@ -119,6 +119,8 @@ try {
 이를 보완하기 위해 Connection Pool이란 개념이 나왔다.
 
 **wireshark를 이용한 TCP 연결 시간 측정**
+- 실제로 3-way-handshake 과정을 패킷 분석 툴인 wireshark를 통해 확인이 가능하다.\
+
 - 
 <br>
 <hr>
