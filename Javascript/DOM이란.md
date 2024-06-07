@@ -28,7 +28,7 @@
 <br>
 
 - 이제 각각에 node에 접근해서 제어가 가능해진다.
-  - 해당 부분은 [BOM]() 에서 다룬다.
+  - 해당 부분은 [BOM](https://github.com/yejun95/Today-I-Learned/blob/master/Javascript/BOM%EC%9D%B4%EB%9E%80.md) 에서 다룬다.
 <br>
 
 - 또한 [웹페이지 빌드 과정 : CRP]()도 알아두면 좋을 것이다.
