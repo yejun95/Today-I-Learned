@@ -151,7 +151,7 @@ export default ThemeContext;
 
 - displayName은 크롬 개발자 도구에서 React devtool 사용시 component 탭에서 Context의 이름 설정 가능
 
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/72061670-6339-4bfa-9abf-649e9d7a01c0)
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/482b4b5b-96ea-4ff3-ba6e-c5ab9828c0ae)
 <br>
 <br>
 
