@@ -232,6 +232,42 @@ export default DarkOrLight;
 ![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/9571df5a-3713-4d95-a5e0-69ba00daa3f7)
 > 클릭 시 테마 변경됨
 <br>
+<br>
+
+- MainContext.jsx에서 useContext를 Consumer로 변경 시 아래와 같이 사용 가능
+
+```javascript
+import { useContext } from "react";
+import ThemeContext from "./ThemeContext";
+
+function MainContext(props) {
+    // const { theme, toggleTheme } = useContext(ThemeContext);
+
+    return (
+      <ThemeContext.Consumer>
+        {({ theme, toggleTheme }) => 
+        <div
+            style={{
+              width: "100vw",
+              height: "100vh",
+              padding: "1.5rem",
+              backgroundColor: theme == "light" ? "white" : "black",
+              color: theme == "light" ? "black" : "white",
+            }}
+        >
+            <p>Context API 테마 변경 테스트</p>
+            <button onClick={toggleTheme}>테마 변경!</button>
+        </div>
+
+        }
+      </ThemeContext.Consumer>
+    )
+}
+
+export default MainContext;
+```
+> value가 2개 이기 때문에 {({value, value}) => ///// } 형태로 사용
+<br>
 <hr>
 <br>
 
