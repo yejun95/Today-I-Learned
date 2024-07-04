@@ -20,24 +20,29 @@
 
 - axios 예제로 비동기 처리를 하지 않고 콘솔을 통해 함수를 실행시켜 json 데이터를 가져와본다.
 ```javascript
-const axios = require('axios');
+import axios from 'axios'
 
 function getData() {
-	axios.get('http://echo.jsontest.com/key/value/one/two')
-    .then(res => {
-      console.log(res.data)
+  axios.get('http://echo.jsontest.com/key/value/one/two')
+    .then(response => {
+      return response.data
     })
-    .catch(err => {
-      console.log(err)
-    })
+    .catch(error => {
+      console.log (error)
+    });
 }
 
-console.log(getData());
+function run() {
+  const data = getData();
+  console.log(data)
+}
+
+run();
 ```
 <br>
 
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/78fdecab-b13e-474d-b74c-bf9eb8b3fbd3)
-> json 데이터를 제대로 가져오지 못하고, 이후 axios 코드 내부의 then으로 인해 정상 데이터 출력
+![image](https://github.com/bjsystems/rnd/assets/121341413/a98c9a69-e63b-4626-a888-acc08bbb696a)
+> data가 넘어오기 전에 출력했기 때문에 `undefined` 발생
 <br>
 
 - 이렇듯 자바스크립트의 비동기 특성을 해결하고자 사용하는 것이 Promise이다.
@@ -49,50 +54,38 @@ console.log(getData());
 
 ## ✔️ 사용법
 ```javascript
-const axios = require('axios');
-
-function getData() {
-  // new Promise() 추가
-  return new Promise(function(resolve, reject) {
-    axios.get('url 주소')
-      .then(res => {
-        resolve(res.data)
-      })
-  });
-}
-
-// getData()의 실행이 끝나면 호출되는 then()
-getData().then(function(axiosData) {
-  // resolve()의 결과 값이 여기로 전달됨
-  console.log(axiosData); // axios.get()의 response 값이 axiosData 전달됨
-});
-```
-> getData 함수안에 Promise를 사용하고 이에 대한 결과를 then으로 받는다.
-<br>
-
-- 이전에 사용했던 axios 예제에 위와 같은 사용법을 통해서 Promise로 변경시켜보자.
-
-```javascript
-const axios = require('axios');
+import axios from 'axios'
 
 function getData() {
   return new Promise(function(resolve, reject) {
     axios.get('http://echo.jsontest.com/key/value/one/two')
-      .then(res => {
-        resolve(res.data)
+      .then(response => {
+        resolve(response.data);
       })
+      .catch(error => {
+        reject(error);
+      });
   });
 }
 
-getData().then(function(axiosData) {
-  console.log(axiosData);
-});
+function run() {
+  getData()
+  .then(function(data) {
+    console.log(data);
+  })
+  .catch(function(error) {
+    console.error(error);
+  });
+}
+
+run();
 ```
+> getData 함수안에 Promise를 사용하고 이에 대한 결과를 then으로 받는다.
 <br>
 
 - 콘솔 결과
 
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/8aba3349-d423-46d2-a462-5aa4c3809097)
+![image](https://github.com/bjsystems/rnd/assets/121341413/cadfe308-c9b6-42ca-b5ce-d12773bf97d4)
 > 이전과는 다르게 undefined가 나오지 않고 바로 api 데이터가 출력됨
 <br>
 
@@ -195,7 +188,7 @@ getData().then().catch(function(err) {
 
 - 제일 처음 사용했떤 test API 주소를 그대로 사용하여 json 데이터를 가져온다.
 
-```
+```javascript
 const axios = require('axios');
 
 function getData() {
@@ -324,7 +317,362 @@ getData()
 <hr>
 <br>
 
+## ✔ waterfall
+- 비동기 작업을 순차적으로 수행하는 패턴
+
+- 즉, 각 작업이 완료된 후 다음 작업이 시작
+
+- 종속적인 비동기 작업을 처리할 때 유용
+
+- 기존 예제를 waterfall 형식을 사용하여 데이터 확인 진행
+
+```javascript
+import axios from 'axios'
+
+function getData1() {
+  return new Promise(function(resolve, reject) {
+    axios.get('http://echo.jsontest.com/key/value/one/two')
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+function getData2(resultFromGetData1) {
+  return new Promise(function(resolve, reject) {
+    axios.get('http://echo.jsontest.com/key/value/three/four')
+      .then(response => {
+        resolve({...resultFromGetData1, ...response.data});
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+function getData3(resultFromGetData2) {
+  return new Promise(function(resolve, reject) {
+    axios.get('http://echo.jsontest.com/key/value/five/six')
+      .then(response => {
+        resolve({...resultFromGetData2, ...response.data});
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+function run() {
+  getData1()
+    .then(result1 => getData2(result1))
+    .then(result2 => getData3(result2))
+    .then(result3 => {
+      console.log(result3)
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+run();
+```
+<br>
+
+- 최종 함수 `getData3`에서 모든 데이터를 출력하였음
+
+![image](https://github.com/bjsystems/rnd/assets/121341413/abc153f6-c1b7-4884-a66e-e187d16ceaa1)
+<br>
+
+- 어떤 데이터를 받느냐에 따라 다르겠지만, 이처럼 순차적 비동기 호출을 통해 원하는 데이터를
+뽑아낼 수 있다.
+
+- 만약 `getData3`함수가 무조건 `getData1`함수의 데이터가 필요하다면 이런식으로 waterfall을 통해
+데이터를 맵핑할 수 있을 것이다.
+<br>
+<br>
+
+- 지금은 waterfall 형식으로 진행을 한 것이고, async 라이브러리를 통해 waterfall 함수 자체를 사용해보자.
+
+- async 라이브러리 설치
+  - `npm install async`
+<br>
+
+- 사용 방법
+
+```javascript
+async.waterfall([
+    function task1(callback) {
+        console.log('task1 message');
+        callback(null, 'result1');
+    },
+    function task2(arg, callback) {
+        console.log('task2 message' + arg);
+        callback(null, 'result2-1', 'result2-2');
+    },
+    function task3(arg1, arg2, callback) {
+        console.log('task3 message' + arg1 + arg2);
+        callback(null, 'result3');
+    }
+    ],
+    function (err, results) {
+        console.log('task finish');
+        console.log(results);
+    }
+);
+```
+<br>
+
+- 다음 태스크로 전달할 값을 콜백의 파라미터로 넘긴다.
+
+- callback의 첫번째 인수인 null은 에러가 없다는 표시, 만약 해당 위치에 값을 넣으면 해당 값이
+에러로 출력된다.
+<br>
+
+- 이제 해당 형식을 본 예제에 대입해보자.
+
+```javascript
+import async from 'async';
+import axios from 'axios';
+
+function getData1(callback) {
+  axios.get('http://echo.jsontest.com/key/value/one/two')
+    .then(response => {
+      callback(null, response.data);
+    })
+    .catch(error => {
+      callback(error);
+    });
+}
+
+function getData2(prevData, callback) {
+  axios.get('http://echo.jsontest.com/key/value/three/four')
+    .then(response => {
+      callback(null, { ...prevData, ...response.data });
+    })
+    .catch(error => {
+      callback(error);
+    });
+}
+
+function getData3(prevData, callback) {
+  axios.get('http://echo.jsontest.com/key/value/five/six')
+    .then(response => {
+      callback(null, { ...prevData, ...response.data });
+    })
+    .catch(error => {
+      callback(error);
+    });
+}
+
+async.waterfall([
+  getData1,
+  getData2,
+  getData3
+], (err, result) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('All tasks complete', result);
+  }
+});
+```
+<br>
+
+![image](https://github.com/bjsystems/rnd/assets/121341413/43603073-4270-4540-a42b-df31ecbaec57)
+> 이전 예제와 동일하게 모든 데이터를 출력
+<br>
+
+- 이러한 방식을 통해서 순차적으로 비동기 호출을 통해 데이터를 리턴받을 수 있다.
+<br>
+<hr>
+<br>
+
+## ✔ parelell
+- 여러 비동기 작업을 동시에 실행
+
+- 모든 작업이 완료된 후에 결과를 처리하는 패턴
+
+- 우선 async 라이브러리를 통해 parelell 함수를 사용하지 않고 Promise 함수인 `Promise.all`을 사용하여 진행
+
+```javascript
+import axios from 'axios'
+
+function getData1() {
+  return new Promise(function(resolve, reject) {
+    axios.get('http://echo.jsontest.com/key/value/one/two')
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+function getData2() {
+  return new Promise(function(resolve, reject) {
+    axios.get('http://echo.jsontest.com/key/value/three/four')
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+function getData3() {
+  return new Promise(function(resolve, reject) {
+    axios.get('http://echo.jsontest.com/key/value/five/six')
+      .then(response => {
+        resolve(response.data);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
+function run() {
+  Promise.all([getData1(), getData2(), getData3()])
+    .then(results => {
+      console.log(results);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+}
+
+run();
+```
+<br>
+
+![image](https://github.com/bjsystems/rnd/assets/121341413/1c408d2c-7c68-41f0-a731-104938974e49)
+> 모든 데이터가 병렬로 실행됨
+<br>
+
+- 하지만 3개 함수 중 1개라도 제대로 실행되지 않는다면 아래와 같이 에러를 리턴한다.
+
+```
+....
+....
+
+  cause: Error: getaddrinfo ENOTFOUND echo.jsotest.com
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:108:26) {
+    errno: -3008,
+    code: 'ENOTFOUND',
+    syscall: 'getaddrinfo',
+    hostname: 'echo.jsotest.com'
+  }
+}
+```
+> api url을 잘못된 url로 수정하여 실행하였더니, 리턴된 에러
+<br>
+<br>
+
+- 이제 async 라이브러리의 paralell 함수를 이용하여 코드 리팩토링 진행
+
+- 사용 방법
+
+```javascript
+async.parallel([
+    function task1(callback) {
+        console.log('task1 start');
+        setTimeout(function() {
+            console.log('task1 end');
+            callback(null, 'result1');
+        }, 300);
+        console.log('task1 message');
+    },
+    function task2(callback) {
+        console.log('task2 start');
+        setTimeout(function() {
+            console.log('task2 end');
+            callback(null, 'result2');
+        }, 500);
+        console.log('task2 message');
+    },
+    function task3(callback) {
+        console.log('task3 start');
+        setTimeout(function() {
+            console.log('task3 end');
+            callback(null, 'result3');
+        }, 200);
+        console.log('task3 message');
+    }
+    ],
+    function (err, results) {
+        console.log('task finish');
+        console.log(results);
+        console.timeEnd('PARALLEL_TIMER');
+    }
+);
+```
+<br>
+
+- 기존에 waterfall이랑 사용했던 방법과 비슷하다.
+
+- 이제 기존 Promise.all을 사용했던 예제에 paralell 함수를 적용해보자.
+
+```javascript
+import async from 'async';
+import axios from 'axios';
+
+function getData1(callback) {
+  axios.get('http://echo.jsontest.com/key/value/one/two')
+    .then(response => {
+      callback(null, response.data);
+    })
+    .catch(error => {
+      callback(error);
+    });
+}
+
+function getData2(callback) {
+  axios.get('http://echo.jsontest.com/key/value/three/four')
+    .then(response => {
+      callback(null, response.data);
+    })
+    .catch(error => {
+      callback(error);
+    });
+}
+
+function getData3(callback) {
+  axios.get('http://echo.jsontest.com/key/value/five/six')
+    .then(response => {
+      callback(null, response.data);
+    })
+    .catch(error => {
+      callback(error);
+    });
+}
+
+async.parallel([
+  getData1,
+  getData2,
+  getData3
+], (err, result) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(result);
+  }
+});
+```
+<br>
+
+![image](https://github.com/bjsystems/rnd/assets/121341413/87cbb3b8-5414-4710-9d21-96cd83a95fbf)
+> 모든 비동기 api에 대한 데이터가 리턴됨
+<br>
+
+- 이처럼 waterfall을 통해 순차적 실행, paralell을 통해 병렬 실행을 통하여 종속적인 데이터 관리가 가능하다.
+<br>
+<hr>
+<br>
+
 **Reference**<br>
 
 [캡틴판교 : 자바스크립트 Promise 쉽게 이해하기](https://joshua1988.github.io/web-development/javascript/promise-for-beginners/)<br>
-[캡틴판교 : 자바스크립트 비동기 처리와 콜백 함수](https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/)
+[캡틴판교 : 자바스크립트 비동기 처리와 콜백 함수](https://joshua1988.github.io/web-development/javascript/javascript-asynchronous-operation/)<br>
+[Onigirl : Promise.all()로 비동기 처리를 구현해보자](https://velog.io/@jay2u8809/Promise.all-%EB%A1%9C-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC%EB%A5%BC-%EA%B5%AC%ED%98%84%ED%95%B4-%EB%B3%B4%EC%9E%90)<br>
+[빨간색소년 : Node의 흐름 제어 (콜백지옥 탈출, Async, Promise)](https://sjh836.tistory.com/83)
