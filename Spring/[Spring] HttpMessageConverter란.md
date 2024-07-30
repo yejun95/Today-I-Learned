@@ -1,4 +1,5 @@
-![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/2e72e25c-d51e-406a-8421-3294575b80c4)## HttpMessageConverter
+# HttpMessageConverter
+![image](https://github.com/yejun95/Today-I-Learned/assets/121341413/2e72e25c-d51e-406a-8421-3294575b80c4)
 - 일반적으로 Spring과 템플릿 엔진을 같이 쓰는 경우 controller요청에 따라 ViewResolver가 View를 찾아준다.
 
 - 그러나 JSP, Thymeleaf등과 같은 템플릿 엔진을 제외하고 Vue, React 등을 쓰는 경우 JSON Data만 클라이언트쪽으로 던져준다.
