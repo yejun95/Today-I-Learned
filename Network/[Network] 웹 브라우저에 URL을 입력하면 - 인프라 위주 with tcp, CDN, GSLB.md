@@ -140,10 +140,11 @@ ISP를 통해 DNS 서버에 접근할 경우, 해당 DNS 에게 질의
 **➡️ 재해 복구 관점에서의 GSLB**
 
 ![image](https://github.com/user-attachments/assets/a3b6569b-430a-43e8-a009-732c563cd2be)
-> 서버가 죽으면 GSLB가 유저 위치에 따라 최적의 서버로 다시 연결시켜준다.
+> health check를 통해 서버가 죽으면 GSLB가 유저 위치에 따라 최적의 서버로 다시 연결시켜준다.
+<br>
 
-
-
+**➡️ 동작 흐름**
+![image](https://github.com/user-attachments/assets/7241605f-6410-482a-a735-dad67a784890)
 <br>
 <hr>
 <br>
