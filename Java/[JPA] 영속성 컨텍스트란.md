@@ -3,7 +3,11 @@
 
 - 애플리케이션과 데이터베이스 사이에서 객체를 보관하는 가상의 데이터베이스 역할이라고 보면 이해가 쉽다.
 
-- EntityManager를 통해 엔티티를 저장하거나 조회하면 EntityManager는 영속성 컨텍스트에 엔티를 보관하고 관리한다.
+- EntityManager를 통해 엔티티를 저장하거나 조회하면 EntityManager는 영속성 컨텍스트에 엔티티를 보관하고 관리한다.
+
+![image](https://github.com/user-attachments/assets/32398159-8b05-47c2-a311-2d8374c0bded)
+> EntityManager는 EntityManagerFactory라는 인터페이스를 구현한다.
+<br>
 
 - Ex) `em.persist(member)`와 같이 EntityManager를 사용해 회원 엔티티를 저장하면<br>
 바로 DB에 반영하지 않고 영속성 컨텍스트에 저장한다.
@@ -61,6 +65,10 @@ em.remove(member);
 <br>
 
 ## ✔️ 영속성 컨텍스트의 특징
+![image](https://github.com/user-attachments/assets/d1ce9f8d-17ea-40bc-82fa-09aedbc5b70a)
+> 그림으로 보는 영속성 컨텍스트 내부
+<br>
+
 **➡️ 영속성 컨텍스트의 식별자 값**
 - 영속성 컨텍스트는 엔티티를 식별자 값으로 구분한다. 
 
@@ -89,6 +97,34 @@ Member member = em.find(Member.class, "member1");
   - 없으면 데이터베이스에서 조회한다.
   - 조회한 데이터로 엔티티를 생성해 1차 캐시에 저장한다. (엔티티를 영속상태로 만든다)
   - 조회한 엔티티를 반환한다.
+
+```java
+Member member = new Member();
+member.setId("member1")
+member.setUsername("회원1");
+
+//1차 캐시에 저장됨
+em.persist(member);
+
+//1차 캐시에서 조회
+Member member1 = em.find(Member.class, "member1");
+```
+
+![image](https://github.com/user-attachments/assets/06e3c155-44ba-4a27-8429-0e72f55090e0)
+> 1차 캐시에서 찾음
+<br>
+
+```java
+Member member2 = em.find(Member.class, "member2");
+```
+
+![image](https://github.com/user-attachments/assets/12c73bc3-60ca-40bc-8fc3-b1d4935db4d8)
+> 1차 캐시에 없다면 db를 조회하고, 해당 데이터를 1차 캐시에 저장한다.
+<br>
+
+> 사실 1차 캐시는 큰 도움이 되지 않는다.<br>
+이유1. 1차 캐시가 있는 EntityManager는 트랜잭션 단위로 만들고 사라진다. 즉, 1차 캐시가 살아있는 시간은 매우 짧아 성능에 큰 효과는 없다.<br>
+이유2. 트랜잭션마다 각자 EntityManger를 사용한다. 즉, 각자 다른 영속성 컨텍스트와 1차 캐시를 가진다.<br>
 <br>
 
 - 동일성 보장
@@ -154,4 +190,5 @@ System.out.print(a==b) // true
 **Reference**<br>
 
 [neptunes032.log : JPA 영속성 컨텍스트란?](https://velog.io/@neptunes032/JPA-%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%9E%80)<br>
-[]
+[잇트루 : [JPA] 영속성 컨텍스트(Persistence Context)란? - 개넘 정리 및 사용법](https://ittrue.tistory.com/254)<br>
+[go_go_ : [JPA] 영속성 컨텍스트의 전반적인 이해(개념, 장점, 동작 방식)](https://velog.io/@suk13574/JPA-%EC%98%81%EC%86%8D%EC%84%B1-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8%EC%9D%98-%EC%A0%84%EB%B0%98%EC%A0%81%EC%9D%B8-%EC%9D%B4%ED%95%B4%EA%B0%9C%EB%85%90-%EC%9E%A5%EC%A0%90-%EB%8F%99%EC%9E%91-%EB%B0%A9)
