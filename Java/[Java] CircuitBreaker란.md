@@ -64,7 +64,24 @@
 <hr>
 <br>
 
+## ✔️ Resilience4j 모듈 종류
+- Retry : 요청이 실패하였을 때, 재 시도하는 기능 제공
+
+- Circuit Breaker : 장애 감지 시 예상치 못한 시스템 장애가 지속적으로 반복되는 것을 방지
+
+- Bulkhead : 동시 실행 횟수 제한 기능 제공
+
+- RateLimiter : 제한치를 넘어선 요청에 대한 요청을 거부하거나 Queue로 만들어 실행 기능 제공
+
+- TimeLimiter : 실행 시간 제한 설정 기능 제공
+
+- Cache : 결과 캐싱 기능 제공
+<br>
+<hr>
+<br>
+
 **Reference**<br>
 
 [댕댕's Dev Note : [Java/Spring] Resilience4j - Circuit Breaker (1). 정의](https://mein-figur.tistory.com/entry/resilience4j-circuit-breaker-definition)<br>
-[우아한기술블로그 : 개발자 의식의 흐름대로 적용해보는 서킷브레이커](https://techblog.woowahan.com/15694/)
+[우아한기술블로그 : 개발자 의식의 흐름대로 적용해보는 서킷브레이커](https://techblog.woowahan.com/15694/)<br>
+[전봉근 : 서킷브레이커(=Circuitbreaker) Resilience4j 적용 (Java + Spring Boot) 1편](https://bkjeon1614.tistory.com/711)
