@@ -53,7 +53,7 @@ ISP를 통해 DNS 서버에 접근할 경우, 해당 DNS 에게 질의
   - 정확히는 5번, 6번 과정에서 HTTP Request, Response를 하였을 때, 데이터의 이동 흐름이다.
 <br>
 
-- [TCP 송수신 원리]()
+- [TCP 송수신 원리](https://github.com/yejun95/Today-I-Learned/edit/master/Network/%5BNetwork%5D%20TCP%20%EC%86%A1%EC%88%98%EC%8B%A0%EC%9B%90%EB%A6%AC.md)
 
 <br>
 
