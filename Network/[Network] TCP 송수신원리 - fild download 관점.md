@@ -34,8 +34,7 @@
 ## ✔️ 서버 관점 - Encapsulation
 - 파일이 메모리에 적재 됐다면 TCP/IP 통신을 통해 클라이언트로 전송하기 위한 일련의 과정이 필요하다.
 
-![image](https://github.com/user-attachments/assets/1a6b4be2-d175-4b63-ae43-bcf20933e975)
-
+![image](https://github.com/user-attachments/assets/929a9c79-e48b-4dc1-a887-1902dab302e4)
 <br>
 
 ### 과정
@@ -85,8 +84,64 @@
 
 - 즉, MTU가 1500이라고 할 때 IP Header의 크기 20byte 와 TCP Header의 크기 20byte를 제외하면 실제 사용자 data는 최대 1460까지 하나의 패킷으로 전송될 수 있다.
 <br>
+<hr>
+<br>
 
+## ✔️ 클라이언트 관점 - Decapsulation
+- 클라이언트는 서버로 부터 수신받은 프레임을 분해하여 Read 하는 작업을 진행해야 한다.
 
+![image](https://github.com/user-attachments/assets/aa029717-9e2c-47d5-9b1f-2b7bfb0205f5)
+<br>
+
+## 과정
+- 서버로 부터 수신받은 프레임을 Decapsulation 진행하여 프레임에서 패킷을 꺼낸 후 안에 있는 세그먼트를 TCP 버퍼에 쌓는다.
+
+- 만약 서버로 부터 1개의 세그먼트를 받았다면 다음 2번을 보내달라고 요청을 해야 하므로 ACK의 번호를 2번으로 하여 서버에 전송을 한다.
+  - 서버는 클라이언트의 ACK가 올 때 까지 다음 세그먼트를 전송하지 않고 **❗Wait❗**한다.
+  - 이 때 서버는 ACK를 기다리다가 속도 지연이 발생한다.
+  - 또한 TCP의 Window Size에 여유가 없다면 서버는 새로운 세그먼트를 전송하지 않는다.
+  - 즉, 서버는 수신측의 Window Size가 MSS보다 큰지 확인 후 Send를 결정한다. -> Window Size보다 MSS가 작으면 **❗Wait❗**를 한다.
+<br>
+
+- TCP 버퍼에 쌓인 세그먼트를 File 버퍼에서 Read한다.
+  - 이 때 Read속도가 네트워크 속도보다 느리다면 TCP 버퍼가 가득차게 된다.
+  - 서버는 TCP 버퍼가 가득차면 Window Size가 MSS 보다 작기 때문에 Send를 멈추고 **❗Wait❗**한다.
+<br>
+<hr>
+<br>
+
+## ✔️ 정리
+![image](https://github.com/user-attachments/assets/b8879bd8-1dfc-449d-96e0-f1c388921223)
+<br>
+
+1. 서버 프로세스가 소켓에 I/O를 함
+
+2. Driver를 통해 하드에 저장되어 있는 파일을 읽어옴
+
+3. 할당된 메모리에 파일을 64KB로 쪼개서 읽음
+
+4. 메모리에 쌓인 버퍼를 TCP에서  분해하여 TCP 버퍼에 Copy한다.
+
+5. L4 -> L3 -> L2로의 Encapsulation을 통해 세그먼트를 담은 패킷이 프레임에 캡슐화된다.
+
+6. 캡슐화된 Frame이 클라이언트 쪽으로 전송된다.
+
+7. 서버로부터 전송받은 프레임을 Decapsulation 하여 세그먼트를 꺼낸다.
+
+8. Decapsulation을 통해 분해된 Segment가 TCP 버퍼에 쌓인다.
+
+9. TCP 버퍼에 쌓인 세그먼트를 Read한다.
+<br>
+
+**➡️ 키 포인트**
+- 서버는 클라이언트의 ACK가 올 때 까지 다음 세그먼트를 전송하지 않고 **❗Wait❗**한다. (속도 지연 발생 가능)
+
+- 서버는 수신측의 Window Size가 MSS보다 큰지 확인 후 Send를 결정한다. -> Window Size보다 MSS가 작으면 **❗Wait❗**를 한다.
+
+- 네트워크 전송 속도보다 Read 속도가 느리면 TCP 버퍼에 세그먼트가 쌓이고 이로 인해 서버는 Window Size가 MSS보다 작기 때문에 Send를 멈추고 **❗Wait❗**을 한다.
+<br>
+<hr>
+<br>
 
 **Reference**
 
