@@ -218,9 +218,10 @@ Create React App에서 흔히 겪는 또 다른 문제는 데이터 페칭(data 
 Create React App은 기본적으로 특정한 데이터 페칭 솔루션을 포함하고 있지 않습니다.<br>
 처음 시작할 때는 fetch를 useEffect 내부에서 호출하여 데이터를 불러오는 것이 일반적인 방법입니다.<br>
 
-하지만 이렇게 하면 컴포넌트가 렌더링된 후에 데이터를 가져오게 되므로 네트워크 워터폴(network waterfall) 문제가 발생할 수 있습니다.
-네트워크 워터폴은 애플리케이션이 렌더링될 때마다 데이터를 순차적으로 불러오는 방식 때문에 로딩 시간이 길어지는 문제입니다.
+하지만 이렇게 하면 컴포넌트가 렌더링된 후에 데이터를 가져오게 되므로 네트워크 워터폴(network waterfall) 문제가 발생할 수 있습니다.<br>
+네트워크 워터폴은 애플리케이션이 렌더링될 때마다 데이터를 순차적으로 불러오는 방식 때문에 로딩 시간이 길어지는 문제입니다.<br>
 
+```js
 export default function Dashboard() {
   const [data, setData] = useState(null);
 
@@ -237,14 +238,16 @@ export default function Dashboard() {
     </div>
   );
 }
+```
+<br>
 
+위와 같은 방식으로 데이터를 가져오면, 데이터를 더 일찍 가져올 수 있었음에도 불구하고, 사용자는 데이터를 기다려야 하는 상황이 발생합니다.<br>
+이 문제를 해결하기 위해서는 React Query, SWR, Apollo, Relay 같은 데이터 페칭 라이브러리를 사용하면 좋습니다.<br>
+이러한 라이브러리는 데이터를 사전 로드(prefetching) 하는 기능을 제공하여, 컴포넌트가 렌더링되기 전에 데이터를 미리 요청할 수 있습니다.<br>
 
-위와 같은 방식으로 데이터를 가져오면, 데이터를 더 일찍 가져올 수 있었음에도 불구하고, 사용자는 데이터를 기다려야 하는 상황이 발생합니다.
-이 문제를 해결하기 위해서는 React Query, SWR, Apollo, Relay 같은 데이터 페칭 라이브러리를 사용하면 좋습니다.
-이러한 라이브러리는 데이터를 사전 로드(prefetching) 하는 기능을 제공하여, 컴포넌트가 렌더링되기 전에 데이터를 미리 요청할 수 있습니다.
+또한, 데이터를 라우트 로더(loader) 패턴과 통합하면 라우트가 로드될 때 데이터를 동시에 가져올 수 있어 최적화된 데이터 페칭이 가능합니다.<br>
 
-또한, 데이터를 라우트 로더(loader) 패턴과 통합하면 라우트가 로드될 때 데이터를 동시에 가져올 수 있어 최적화된 데이터 페칭이 가능합니다.
-
+```js
 export async function loader() {
   const response = await fetch(`/api/data`);
   const data = await response.json();
@@ -259,44 +262,36 @@ export default function Dashboard({ loaderData }) {
     </div>
   );
 }
+```
+<br>
 
+최초 로드 시, 라우터가 데이터를 미리 가져온 후에 라우트를 렌더링할 수 있습니다.<br>
+사용자가 앱을 탐색할 때도 라우트와 데이터를 동시에 병렬로 가져올 수 있어 로딩 시간을 줄이고 사용자 경험을 개선할 수 있습니다.<br>
 
-최초 로드 시, 라우터가 데이터를 미리 가져온 후에 라우트를 렌더링할 수 있습니다.
-사용자가 앱을 탐색할 때도 라우트와 데이터를 동시에 병렬로 가져올 수 있어 로딩 시간을 줄이고 사용자 경험을 개선할 수 있습니다.
+그러나, 이를 올바르게 설정하려면 라우트의 로더(loader) 를 적절히 구성해야 하며, 이는 성능 향상을 위해 코드의 복잡도를 증가시키는 트레이드오프가 존재합니다.<br>
 
-그러나, 이를 올바르게 설정하려면 라우트의 로더(loader) 를 적절히 구성해야 하며, 이는 성능 향상을 위해 코드의 복잡도를 증가시키는 트레이드오프가 존재합니다.
+**Code Splitting**
+Create React App의 또 다른 일반적인 문제는 코드 스플리팅(Code Splitting)입니다.<br>
+Create React App은 특정한 코드 스플리팅 솔루션을 포함하지 않습니다. 처음 시작할 때는 코드 스플리팅을 고려하지 않을 수도 있습니다.<br>
 
-Code Splitting
+이 경우, 애플리케이션은 단일 번들로 제공됩니다:<br>
 
+- bundle.js 75KB
+<br>
 
-Create React App의 또 다른 일반적인 문제는 코드 스플리팅(Code Splitting)입니다. Create React App은 특정한 코드 스플리팅 솔루션을 포함하지 않습니다. 처음 시작할 때는 코드 스플리팅을 고려하지 않을 수도 있습니다.
+그러나 이상적인 성능을 위해서는 코드를 별도의 번들로 "분할"하여 사용자가 필요한 부분만 다운로드하도록 해야 합니다.<br>
+이렇게 하면 사용자가 현재 보고 있는 페이지에 필요한 코드만 다운로드하므로 애플리케이션 로딩 시간이 단축됩니다.<br>
 
-이 경우, 애플리케이션은 단일 번들로 제공됩니다:
+- core.js 25KB
+- home.js 25KB
+- dashboard.js 25KB
 
+코드 스플리팅을 수행하는 한 가지 방법은 React.lazy를 사용하는 것입니다.<br>
+하지만 이 방법은 컴포넌트가 렌더링될 때까지 코드를 가져오지 않으므로 네트워크 워터폴(Network Waterfall) 문제가 발생할 수 있습니다.<br>
+보다 최적화된 솔루션은 라우터 기능을 활용하여 코드가 다운로드되는 동안 병렬로 가져오는 것입니다.<br>
+예를 들어, React Router는 lazy 옵션을 제공하여 코드 스플리팅을 적용하고 로딩 시점을 최적화할 수 있습니다.<br>
 
-
-
-
-bundle.js 75KB
-
-그러나 이상적인 성능을 위해서는 코드를 별도의 번들로 "분할"하여 사용자가 필요한 부분만 다운로드하도록 해야 합니다. 이렇게 하면 사용자가 현재 보고 있는 페이지에 필요한 코드만 다운로드하므로 애플리케이션 로딩 시간이 단축됩니다.
-
-
-
-
-
-core.js 25KB
-
-
-
-home.js 25KB
-
-
-
-dashboard.js 25KB
-
-코드 스플리팅을 수행하는 한 가지 방법은 React.lazy를 사용하는 것입니다. 하지만 이 방법은 컴포넌트가 렌더링될 때까지 코드를 가져오지 않으므로 네트워크 워터폴(Network Waterfall) 문제가 발생할 수 있습니다. 보다 최적화된 솔루션은 라우터 기능을 활용하여 코드가 다운로드되는 동안 병렬로 가져오는 것입니다. 예를 들어, React Router는 lazy 옵션을 제공하여 코드 스플리팅을 적용하고 로딩 시점을 최적화할 수 있습니다.
-
+```js
 import Home from './Home';
 import Dashboard from './Dashboard';
 
@@ -305,70 +300,57 @@ const router = createBrowserRouter([
   {path: '/', lazy: () => import('./Home')},
   {path: '/dashboard', lazy: () => import('Dashboard')}
 ]);
+```
+<br>
 
-최적화된 코드 스플리팅을 올바르게 구현하는 것은 까다로우며, 사용자가 불필요한 코드를 다운로드하게 만드는 실수를 하기 쉽습니다. 따라서 코드 스플리팅은 라우터 및 데이터 로딩 솔루션과 함께 통합될 때 가장 효과적으로 작동하며, 캐싱을 최적화하고 병렬 요청을 수행하며 "사용자 상호작용 시 로드(Import on Interaction)" 패턴을 지원할 수 있습니다.
+최적화된 코드 스플리팅을 올바르게 구현하는 것은 까다로우며, 사용자가 불필요한 코드를 다운로드하게 만드는 실수를 하기 쉽습니다.<br>
+따라서 코드 스플리팅은 라우터 및 데이터 로딩 솔루션과 함께 통합될 때 가장 효과적으로 작동하며,<br>
+캐싱을 최적화하고 병렬 요청을 수행하며 "사용자 상호작용 시 로드(Import on Interaction)" 패턴을 지원할 수 있습니다.<br>
+<br>
+<hr>
+<br>
 
-
-
-
-
-결론: 이제는 프레임워크를 사용하세요!
-
+**결론: 이제는 프레임워크를 사용하세요!**
 Create React App은 더 이상 유지보수되지 않으며, React 프로젝트를 만들 때는 공식적으로 지원하는 프레임워크를 사용하는 것이 가장 좋은 방법입니다.
+<br>
 
-✅ 추천 대안
+**✅ 추천 대안**
 
-
-
-
-
+```
 npx create-next-app@latest → Next.js
+```
+<br>
 
-
-
+```
 npx create-react-router@latest → React Router
+```
 
-
-
+```
 npx create-expo-app@latest → Expo (React Native)
+```
 
-
-
+```
 npm create vite@latest my-app --template react → Vite (커스텀 설정 가능)
+```
 
 CRA에서 마이그레이션해야 한다면 Next.js, React Router, Expo 등의 가이드를 참고하세요! 🚀
+<br>
+<hr>
+<br>
 
+### 부록1) Vite와 Next.js의 코드 스플리팅(Code Splitting) 전략 
 
+### 1. Vite의 코드 스플리팅 전략
 
+Vite는 ESM 기반의 네이티브 브라우저 모듈 로딩을 활용하여 코드 스플리팅을 최적화합니다.<br>
+이를 통해 불필요한 코드 다운로드를 방지하고, 초기 로딩 속도를 개선할 수 있습니다.<br>
 
+**✅ Vite의 주요 코드 스플리팅 방식**
+- ESM 기반의 자동 코드 스플리팅
+  - Vite는 import()를 감지하여 자동으로 번들을 분리합니다.
+  - 예제:
 
-
-
-부록1) Vite와 Next.js의 코드 스플리팅(Code Splitting) 전략 
-
-1. Vite의 코드 스플리팅 전략
-
-Vite는 ESM 기반의 네이티브 브라우저 모듈 로딩을 활용하여 코드 스플리팅을 최적화합니다.
-이를 통해 불필요한 코드 다운로드를 방지하고, 초기 로딩 속도를 개선할 수 있습니다.
-
-✅ Vite의 주요 코드 스플리팅 방식
-
-
-
-
-
-ESM 기반의 자동 코드 스플리팅
-
-
-
-
-
-Vite는 import()를 감지하여 자동으로 번들을 분리합니다.
-
-
-
-예제:
-
+```js
 import { lazy, Suspense } from 'react';
 
 const Home = lazy(() => import('./Home'));
@@ -381,26 +363,16 @@ export default function App() {
     </Suspense>
   );
 }
+```
+<br>
 
+- 위 코드에서 import('./Home') 및 import('./Dashboard')가 자동으로 별도 청크(bundle) 로 분리됩니다.
 
+- 라우팅과 함께 최적화
+  - Vite는 react-router-dom 같은 라우팅 라이브러리와 함께 사용하면 라우트 단위 코드 스플리팅을 쉽게 구현할 수 있습니다.
+  - 예제 (React Router 사용):
 
-
-위 코드에서 import('./Home') 및 import('./Dashboard')가 자동으로 별도 청크(bundle) 로 분리됩니다.
-
-
-
-라우팅과 함께 최적화
-
-
-
-
-
-Vite는 react-router-dom 같은 라우팅 라이브러리와 함께 사용하면 라우트 단위 코드 스플리팅을 쉽게 구현할 수 있습니다.
-
-
-
-예제 (React Router 사용):
-
+```js
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -411,19 +383,12 @@ const router = createBrowserRouter([
 export default function App() {
   return <RouterProvider router={router} />;
 }
+```
+<br>
 
+- 위 방식은 Home과 Dashboard가 필요한 시점에만 다운로드되도록 최적화됩니다.
 
-
-
-위 방식은 Home과 Dashboard가 필요한 시점에만 다운로드되도록 최적화됩니다.
-
-
-
-Preloading & Prefetching 최적화
-
-
-
-
+- Preloading & Prefetching 최적화
 
 Vite는 vite-plugin-legacy, @vite/plugin-legacy 등을 활용하여 브라우저의 rel="preload" 및 rel="prefetch"을 자동 적용할 수 있습니다.
 
