@@ -61,6 +61,8 @@ const Home = lazy(() => import('./routes/home.tsx'));
 <br>
 
 **💡 그리고 React.lazy가 적용된 컴포넌트는 React.Suspense 컴포넌트 안에 렌더링해야 한다.**
+- [Suspense란](https://github.com/yejun95/Today-I-Learned/blob/master/React/%5BReact%5D%20Suspense%EB%9E%80.md)
+<br>
 
 ```js
 import { lazy, Suspense } from 'react';
