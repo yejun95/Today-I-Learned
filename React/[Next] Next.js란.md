@@ -45,12 +45,35 @@
 <hr>
 <br>
 
+## ✔️ Next.js 준비하기
+- Node.js와 npm 설치 필요
 
+- 프로젝트 기본 구조 설정
 
+```
+npx create-next-app <app-name>
+```
+<br>
 
+- npx 명령어를 통해 설치하면 패키지 구조는 아래와 같다.
+
+![image](https://github.com/user-attachments/assets/235be010-14cc-4cbe-93db-40d2bd9eeb42)
+> typescript를 적용하여 init을 함
+<br>
+
+- 이후 프로젝트를 실행하면 아래와 같은 화면이 등장
+
+```
+npm run dev
+```
+
+![image](https://github.com/user-attachments/assets/e47a7302-c014-4c43-a422-dbad5cb11006)
+<br>
+<hr>
+<br>
 
 **Reference**<br>
 
+[한빛미디어 : 리액트에서 Next.js로, 넥스트JS의 특장점과 빠르게 시작하는 법 알아보기](https://www.hanbit.co.kr/channel/category/category_view.html?cms_code=CMS7641364152)<br>
 [woony.log : Next.js란?](https://velog.io/@codns1223/Nextjs-Next.js%EB%9E%80)<br>
 [그래도 해야지 : Next.js란 무엇이고 왜 사용하는가](https://subtlething.tistory.com/115)<br>
-
