@@ -142,8 +142,75 @@ ResponseEntity response = restTemplate.exchange(
 <hr>
 <br>
 
+## ✔️ HTTP 요청 및 응답에 대한 로깅 제공
+- HTTP 요청 및 응답에 대한 로깅을 제공
+
+- RestTemplate Bean을 구성하는 데 사용되는 HttpClient는 HTTP 요청 및 응답을 로깅할 수 있는 HttpClientInterceptor를 제공
+
+- HttpClientInterceptor의 구현체로 재 구성한다.
+<br>
+
+```java
+public class CustomInterceptor implements ClientHttpRequestInterceptor {
+    @Override
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body,
+            ClientHttpRequestExecution execution) throws IOException {
+        // Request 수정
+        request.getHeaders().add("Custom-Header", "Custom-Value");
+
+        // Request 정보 로깅
+        log.info("Request URI : {}", request.getURI());
+        log.info("Request Method : {}", request.getMethod());
+        log.info("Request Headers : {}", request.getHeaders());
+        log.info("Request Body : {}", new String(body, "UTF-8"));
+
+        // 다음 인터셉터 또는 요청 실행
+        ClientHttpResponse response = execution.execute(request, body);
+
+        // Response 정보 로깅
+        log.info("Response Status : {}", response.getStatusCode());
+        log.info("Response Headers : {}", response.getHeaders());
+
+        return response;
+    }
+}
+```
+<br>
+
+- 해당 CustomInterceptor는 RestTemplate 객체 생성 시에 interceptors 속성에 대한 구현체로 넣을 수 있다.
+
+```java
+RestTemplate restTemplate = new RestTemplateBuilder()
+        .interceptors(new CustomInterceptor())
+        .build();
+```
+<br>
+<hr>
+<br>
+
+## ✔️ RestTemplate vs WebClient
+- 동기적으로 처리되는 RestTemplate과 비동기적으로 처리되는 WebClient를 비교 진행
+
+| 구분                 | RestTemplate           | WebClient               |
+|----------------------|------------------------|--------------------------|
+| 요청/응답            | 동기                   | 비동기                   |
+| Connection pool      | Apache Http Client     | Netty                    |
+| 기본 인증            | 지원                   | 지원                     |
+| OAuth2 인증          | 지원                   | 지원                     |
+| JSON 처리            | Jackson, Gson 등       | Jackson, Gson 등         |
+| XML 처리             | JAXB, Jackson 등       | Jackson 등               |
+| multipart/form-data  | 지원                   | 지원                     |
+| 쿠키                 | 지원                   | 지원                     |
+| 헤더 설정            | 지원                   | 지원                     |
+| 요청 시간 초과 설정 | 지원                   | 지원                     |
+| SSL 인증서 검증      | 지원                   | 지원                     |
+| 로깅                 | 지원                   | 지원                     |
+| 성능                 | 느림                   | 빠름                     |
+<br>
+<hr>
+<br>
+
 **Reference**<br>
 
 [쮸니이 : RestTemplate 이란 무엇인가?](https://jjunn93.com/entry/Spring-RestTemplate-%EC%9D%B4%EB%9E%80)<br>
-[Contributor9 : Spring Boot Web 활용 : RestTemplate 이해하기](https://adjh54.tistory.com/234)<br>
-[]
+[Contributor9 : Spring Boot Web 활용 : RestTemplate 이해하기](https://adjh54.tistory.com/234)
