@@ -124,3 +124,75 @@ ON member (name);
 CREATE INDEX idx_name
 ON member (name);
 ```
+<br>
+<br>
+
+### 논-클러스터링 인덱스 - 인덱스 구성 후 데이터 찾는법
+<img width="1258" height="734" alt="image" src="https://github.com/user-attachments/assets/d0174608-9ee6-4509-a2b9-e4f76cc8201b" />
+<br>
+
+- 데이터 조회 시
+<img width="1255" height="729" alt="image" src="https://github.com/user-attachments/assets/c9a1732d-bf84-439c-9e90-2cf239a7a0e2" />
+<br>
+<br>
+
+### 논-클러스터링 인덱스 특징
+- 실제 데이터 페이지는 그대로
+
+- 별도의 인덱스 페이지 생성 -> 추가 공간 필요
+
+- 테이블당 여러 개 존재
+
+- 리프 페이지에 실제 데이터 페이지 주소를 담고 있음
+  - 클러스터링 인덱스와 함께 사용 시 : 리프 페이지에 클러스터링 인덱스가 적용된 컬럼의 실제 값 사용
+<br>
+
+- unique 제약조건 적용시 자동 생성
+
+- 직접 index 생성 시 논-클러스터링 인덱스 생성
+<br>
+<hr>
+<br>
+
+## ✔️ 클러스터링 + 논-클러스터링 인덱스 동시 적용
+<img width="1024" height="486" alt="image" src="https://github.com/user-attachments/assets/3f99e17d-6646-4966-bbf0-fa7030c68baa" />
+<br>
+
+- 앞서 정리한 글을 토대로 예상되는 인덱스 페이지는 어떨까?
+<img width="1250" height="724" alt="image" src="https://github.com/user-attachments/assets/f714b1f1-a0f0-4471-af70-d4dc0915c4b1" />
+<br>
+
+- 위에서 예상되는 인덱스 상황은 클러스터링 인덱스 리프 페이지에 주소값을 논-클러스터링 인덱스에서 바라보고 있다.
+
+- 그러나 클러스터링과 논-클러스터링을 동시에 적용하면 논-클러스터링은 클러스터링 인덱스의 리프 페이지에 대한 주소값이 아닌,
+실제 인덱스 값을 바라본다.
+
+<img width="1257" height="720" alt="image" src="https://github.com/user-attachments/assets/d50c21db-3ce6-4867-8027-a449d1d39c05" />
+<br>
+
+<img width="1253" height="723" alt="image" src="https://github.com/user-attachments/assets/a3de47a9-d519-4df5-abeb-283e173db509" /><br>
+> 논-클러스터링 인덱스로 데이터 검색 시 클러스터링 인덱스의 id값을 가지고, 그 값을 토대로 검색을 한다.
+<br>
+
+### 클러스터링과 논-클러스터링을 동시 사용 시 주소값을 사용하지 않는 이유
+- 데이터베이스는 페이지 라는 단위를 사용하여 데이터를 보관 및 정렬한다.
+
+- 만약 논-클러스터링 인덱스가 클러스터링 인덱스를 동시에 사용하면서 주소값을 바라보면 값이 추가 될 때 마다
+페이지 분할이 일어나게 된다.
+
+- 페이지 분할이 일어나면 데이터 정렬 및 주소값 변경이 일어나기 때문에 성능 저하가 발생할 수 있다.
+
+- 아래 사진을 보고 참고해보자.
+
+<img width="1258" height="726" alt="image" src="https://github.com/user-attachments/assets/7d454c2f-5573-46c4-bc74-d63afaf99d24" /><br>
+> 데이터가 중간에 삽입 시 페이지 분할 및 주소값 변경으로 인한 성능 저하 발생
+<br>
+<hr>
+<br>
+
+**Reference**<br>
+
+[우하한테크 : 라라, 제로의 데이터베이스 인덱스](https://www.youtube.com/watch?v=edpYzFgHbqs&t=891s)
+
+
+
