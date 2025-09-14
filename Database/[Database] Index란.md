@@ -190,9 +190,22 @@ ON member (name);
 <hr>
 <br>
 
+## ✔️ 인덱스 적용 기준
+### 사용하면 좋은 경우
+- 카디널리티가 높은 (중복도가 낮은) 컬럼
+
+- WHERE, JOIN, ORDER BY 절에 자주 사용되는 컬럼
+  - 인덱스는 추가 공간이 필요
+  - 조건 절이 없다면 인덱스가 사용되지 않음
+<br>
+
+- INSERT, UPDATE, DELETE가 자주 발생하지 않는 컬럼
+
+- 규모가 작지 않은 테이블
+<br>
+<hr>
+<br>
+
 **Reference**<br>
 
 [우하한테크 : 라라, 제로의 데이터베이스 인덱스](https://www.youtube.com/watch?v=edpYzFgHbqs&t=891s)
-
-
-
