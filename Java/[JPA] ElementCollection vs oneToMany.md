@@ -216,6 +216,72 @@ OrderItem foundItem = orderItemRepository.findById(item1.getId());
 <hr>
 <br>
 
+## ✔️ 실제 시나리오별 권장사항
+### @ElementCollection이 적합한 경우
+```java
+// 1. 단순한 값의 집합
+@Entity
+public class Product {
+    @ElementCollection
+    @CollectionTable(name = "product_images")
+    @Column(name = "image_url")
+    private List<String> imageUrls = new ArrayList<>();
+    
+    // 2. 설정값들
+    @ElementCollection
+    @CollectionTable(name = "user_preferences")
+    @MapKeyColumn(name = "preference_key")
+    @Column(name = "preference_value")
+    private Map<String, String> preferences = new HashMap<>();
+    
+    // 3. 태그나 카테고리
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "product_categories")
+    @Column(name = "category")
+    private Set<Category> categories = new HashSet<>();
+}
+```
+<br>
+<br>
+
+### @OneToMany가 적합한 경우
+```java
+// 1. 비즈니스 로직이 있는 관계
+@Entity
+public class Post {
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
+    
+    public void addComment(Comment comment) {
+        comments.add(comment);
+        comment.setPost(this);
+        // 비즈니스 로직: 댓글 수 제한 등
+        if (comments.size() > 100) {
+            throw new IllegalStateException("댓글 수 초과");
+        }
+    }
+}
+
+// 2. 독립적인 생명주기가 필요한 경우
+@Entity
+public class Order {
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
+    
+    // 주문 취소 시 일부 상품만 환불
+    public void refundOrderItems(List<Long> itemIds) {
+        orderItems.stream()
+            .filter(item -> itemIds.contains(item.getId()))
+            .forEach(OrderItem::refund);
+    }
+}
+```
+<br>
+<hr>
+<br>
+
 **Reference**<br>
 
 [한결 : @ElementCollection vs @OneToMany](https://velog.io/@eoveol/JPA-ElementCollection-vs-OneToMany)<br>
+[passionfruit200 : 회원과 회원권한관리에서 OneToMany 대신 ElementCollection을 사용하는 경우](https://passionfruit200.tistory.com/346)
