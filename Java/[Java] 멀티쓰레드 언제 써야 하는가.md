@@ -8,6 +8,20 @@
 쓰레드: 프로세스 내에서 실행되는 작업의 최소 단위
 멀티쓰레드: 하나의 프로세스에서 여러 쓰레드가 동시에 실행
 ```
+
+### 프로세스 vs 쓰레드
+- 프로세스
+  - 각 프로세스는 독립적인 메모리 공간(힙, 스택, 코드 영역)을 가짐
+  - 프로세스 간 통신은 IPC(Inter-Process Communication) 필요
+  - 생성/소멸 비용이 높음
+<br>
+
+- 쓰레드
+  - 같은 프로세스 내 쓰레드들은 메모리 공간을 공유
+  - 쓰레드 간 통신은 공유 메모리를 통해 빠르게 가능
+  - 생성/소멸 비용이 낮음
+<br>
+<hr>
 <br>
 
 ## ✔️ 사용하기 좋을 때
@@ -40,6 +54,18 @@
 ### 사용자 응답성을 높여야 하는 경우
 - UI가 멈추지 않게 하면서 백그라운드 작업 수행
 <br>
+<br>
+
+### 멀티쓰레드의 핵심 이점
+- 동시성(Concurrency): 여러 작업을 동시에 처리
+
+- 응답성(Responsiveness): UI가 멈추지 않음
+
+- 처리량(Throughtput): 전체 작업 처리량 증가
+
+- 자원 활용률: CPU와 I/O 자원을 효율적으로 사용
+<br>
+<hr>
 <br>
 
 ## ✔️ 실제 사용 사례와 예제
@@ -216,6 +242,47 @@ public class DeadlockExample {
 - CPU 코어 수보다 많은 쓰레드: 문맥 전환 비용 증가
 
 - 동기화 복잡도: 코드가 복잡해져서 버그 발생 가능성 증가
+<br>
+<hr>
+<br>
+
+## ✔️ 동시성을 위해 사용 가능한 클래스
+```java
+public class ConcurrencyChoiceGuide {
+    
+    // 1. 단순한 카운터 → AtomicInteger
+    private final AtomicInteger simpleCounter = new AtomicInteger(0);
+    
+    // 2. 복잡한 상태 관리 → ReentrantLock
+    private final ReentrantLock complexStateLock = new ReentrantLock();
+    
+    // 3. 읽기 많은 상황 → ReadWriteLock
+    private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    
+    // 4. 고성능 읽기 → StampedLock
+    private final StampedLock stampedLock = new StampedLock();
+    
+    // 5. 작업 동기화 → CountDownLatch, CyclicBarrier
+    private final CountDownLatch latch = new CountDownLatch(5);
+    
+    // 6. 리소스 제한 → Semaphore
+    private final Semaphore semaphore = new Semaphore(3);
+    
+    // 7. 맵 사용 → ConcurrentHashMap
+    private final ConcurrentHashMap<String, Object> concurrentMap = new ConcurrentHashMap<>();
+    
+    // 8. 큐 사용 → BlockingQueue
+    private final BlockingQueue<String> queue = new LinkedBlockingQueue<>();
+    
+    // 9. 리스트 사용 (읽기 많음) → CopyOnWriteArrayList
+    private final CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+    
+    // 10. 비동기 작업 → CompletableFuture
+    public CompletableFuture<String> asyncWork() {
+        return CompletableFuture.supplyAsync(() -> "비동기 작업");
+    }
+}
+```
 <br>
 <hr>
 <br>
